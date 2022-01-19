@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d643b59f-635a-4459-a8fc-d70cfd0f39cf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/AnnoyingSpigot.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/AnnoyingAPI.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/AnnoyingPlugin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/adapter/GameAdapters.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/adapter/IGameAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/adapter/block/IBlockAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/adapter/entity/IEntityAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/adapter/inventory/IInventoryAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/adapter/player/IPlayerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/adapter/player/connection/IPacketHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/adapter/player/connection/PlayerConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/block/BlockHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/camera/ArmorStandCamera.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/camera/NpcCamera.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/camera/PlayerCamera.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/command/CommandManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/command/CommandNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/command/ICommandContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/command/ICommandRegistry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/command/annotation/Arg.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/command/annotation/FunctionInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/command/argument/EnumArgumentConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/command/argument/ICommandArgumentConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/command/impl/CommandRegistryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/command/reflection/CommandBaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/command/reflection/CommandWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/command/suggestion/EnumSuggestionProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/command/suggestion/SuggestionHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/debug/Debug.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/debug/structure/CommandStructure.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/debug/structure/StructureBuilderPlayer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/EntityAnimation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/EntityFlag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/EntityHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/EntityPose.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/EntityReference.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/controller/IEntityController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/renderer/EntityAgeableRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/renderer/EntityArmorStandRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/renderer/EntityCowRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/renderer/EntityDefaultRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/renderer/EntityLivingRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/renderer/EntityMinecartRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/renderer/EntityPlayerRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/renderer/EntityRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/renderer/EntityRendererHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/renderer/EntityRendererManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/renderer/EntityStrayRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/renderer/EntityVexRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/renderer/ServerEntityRendererManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/entity/tracker/IEntityTracker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/event/player/GamePlayerEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/event/player/GamePlayerJumpEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/event/player/GamePlayerTeleportConfirmEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/event/player/inventory/GamePlayerRenameItemEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/event/player/world/GamePlayerLoadChunkEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/event/player/world/GamePlayerUnloadChunkEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/event/player/world/entity/GamePlayerEntityDestroyEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/event/player/world/entity/GamePlayerEntitySpawnEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/gui/GuiButton.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/gui/GuiGrid.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/gui/GuiInput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/gui/GuiManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/gui/GuiPlayerInventory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/gui/GuiView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/gui/GuiWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/Interaction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/InteractionBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/InteractionHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/InteractionInterruptCause.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/InteractionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/InteractionRegistry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/InteractionSamplingMode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/InteractionTrigger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/constraints/IInteractionConstraint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/constraints/PlayerPredicateConstraint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/constraints/PredicateConstraint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/constraints/location/AngleInteractionConstraint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/constraints/location/DistanceInteractionConstraints.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/event/InteractionEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/module/BossBarInteractionModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/module/CallbackInteractionModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/module/ChainInteractionModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/module/IInteractionModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/module/RegisterInteractionModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/module/input/InputHoldInteractionModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/module/input/InputInterruptInteractionModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/module/player/PlayerPotionEffectInteractionModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/module/player/PlayerSoundEffectInteractionModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/module/player/PlayerSpeedInteractionModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/module/player/PlayerStateUpdateInteractionModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/renderer/ActionBarInteractionRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/interaction/renderer/InteractionRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/item/ItemBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/listener/PlayerInteractionListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/listener/PlayerRendererListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/magical/IValueSupplier.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/magical/MagicalCollection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/magical/MagicalDouble.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/magical/MagicalInt.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/magical/MagicalStatic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/math/IUnsafeEntityLocation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/math/MathHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/math/RandomHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/math/VectorHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/math/WrappedLocation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/math/shape/Box2D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/math/shape/Circle2D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/math/shape/ComplexShape.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/math/shape/IShape.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/math/shape/Point2D.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/music/MusicPlayer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/NbtHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/NbtIO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/NbtRegistry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/NbtSerialization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/exception/NbtFormatException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/serialization/NbtByteArraySerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/serialization/NbtByteSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/serialization/NbtCompoundSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/serialization/NbtDoubleSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/serialization/NbtDummySerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/serialization/NbtFloatSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/serialization/NbtIntArraySerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/serialization/NbtIntSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/serialization/NbtListSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/serialization/NbtLongArraySerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/serialization/NbtLongSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/serialization/NbtSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/serialization/NbtShortSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/serialization/NbtStringSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/tag/NbtByte.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/tag/NbtByteArray.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/tag/NbtCompound.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/tag/NbtDouble.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/tag/NbtFloat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/tag/NbtInt.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/tag/NbtIntArray.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/tag/NbtList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/tag/NbtLong.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/tag/NbtLongArray.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/tag/NbtShort.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/tag/NbtString.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/nbt/tag/NbtTag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/npc/INpcTracker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/npc/Npc.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/npc/NpcManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/player/GamePlayer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/player/IGamePlayerProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/player/IPlayerControllerProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/player/PlayerList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/reflection/FastReflection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/skin/ISkinHolder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/skin/Skin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/sound/ISoundEmitter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/sound/ISoundListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/statemachine/IPartialState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/statemachine/IState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/statemachine/IStateMachine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/structure/Structure.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/structure/StructureInstance.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/structure/StructureManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/util/BitSet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/util/BossBarHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/util/HandType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/util/IBitMask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/util/IModifierCollection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/util/ITickable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/util/Minecraft.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/util/RayTraceHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/util/ScoreboardHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AnnoyingAPI/src/dev/fabien2s/annoyingapi/util/SkinPart.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/GannoyingAPI.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/GamePlugin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/GameSettings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/command/CommandGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/command/CommandLobby.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/command/GameCommandContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/ingame/InGameState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/ingame/SpectatorPlayer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/lobby/LobbyPlayer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/lobby/state/LobbyInitializeGameState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/lobby/state/LobbyStartingState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/lobby/state/LobbyWaitingRoomState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/player/ActiveGamePlayer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/GameChunkGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/GameObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/GameWorld.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/IWorldBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/StructureRegistry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/lod/ILodStateChanged.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/lod/LodController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/object/BlockObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/object/EntityObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/object/IGameObjectBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/object/IGameObjectRegistrable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/object/LodWorldObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/object/WorldObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/object/impl/ParticleEmitterObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/object/impl/SoundEmitterObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/object/projectile/IProjectileSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/object/projectile/IProjectileTarget.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/object/projectile/Projectile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/object/projectile/WorldProjectile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/object/seeker/ReachAndDieTarget.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GannoyingAPI/src/dev/fabien2s/gannoyingapi/world/object/seeker/SeekerObject.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="23veBUmwcmyCGebDGtOvsliN19S" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/bundler/versions" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d643b59f-635a-4459-a8fc-d70cfd0f39cf" name="Changes" comment="" />
+      <created>1642618853156</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1642618853156</updated>
+      <workItem from="1642618854896" duration="28000" />
+      <workItem from="1642619070797" duration="193000" />
+      <workItem from="1642619293178" duration="3130000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>
