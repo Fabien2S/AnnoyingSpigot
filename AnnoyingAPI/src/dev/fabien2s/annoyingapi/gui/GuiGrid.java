@@ -2,7 +2,7 @@ package dev.fabien2s.annoyingapi.gui;
 
 import lombok.Getter;
 import net.md_5.bungee.api.chat.BaseComponent;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.Validate;
 import org.bukkit.inventory.Inventory;
 
 public class GuiGrid extends GuiWindow {
@@ -17,6 +17,7 @@ public class GuiGrid extends GuiWindow {
     public void setItem(int row, int column, GuiButton button) {
         Validate.inclusiveBetween(1, layout.row, row);
         Validate.inclusiveBetween(1, layout.column, column);
+
         int slot = (column - 1) + (row - 1) * layout.column;
         this.setItem(slot, button);
     }

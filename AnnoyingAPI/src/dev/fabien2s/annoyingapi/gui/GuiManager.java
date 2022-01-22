@@ -73,6 +73,7 @@ public class GuiManager implements Listener {
     }
 
     public GuiInput createInput(@Nullable GuiWindow parent, BaseComponent title) {
+        Server server = plugin.getServer();
         return new GuiInput(
                 title,
                 parent
