@@ -40,18 +40,6 @@ public class Skin {
         return propertyList;
     }
 
-    static class SkinEntry {
-
-        private final String value;
-        private final String signature;
-
-        SkinEntry(String value, String signature) {
-            this.value = value;
-            this.signature = signature;
-        }
-
-    }
-
     public static Skin fromProfile(GameProfile gameProfile) {
         PropertyMap properties = gameProfile.getProperties();
         Collection<Property> textures = properties.get("textures");
@@ -62,6 +50,9 @@ public class Skin {
             skinEntries[i++] = new SkinEntry(texture.getValue(), texture.getSignature());
 
         return new Skin(skinEntries);
+    }
+
+    private record SkinEntry(String value, String signature) {
     }
 
 }

@@ -3,7 +3,7 @@ package dev.fabien2s.annoyingapi.camera;
 import dev.fabien2s.annoyingapi.sound.ISoundEmitter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 @RequiredArgsConstructor
 public abstract class PlayerCamera implements ISoundEmitter {
 
-    protected final GamePlayer player;
+    protected final AnnoyingPlayer player;
 
     private boolean initialized;
     @Setter protected GameMode gameMode;

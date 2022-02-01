@@ -8,6 +8,7 @@ public enum EntityPose {
     SWIMMING,
     SPIN_ATTACK,
     SNEAKING,
+    LONG_JUMPING,
     DYING
 
 }

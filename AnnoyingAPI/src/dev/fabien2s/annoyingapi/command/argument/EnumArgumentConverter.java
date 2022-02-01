@@ -5,17 +5,15 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
-import dev.fabien2s.annoyingapi.adapter.GameAdapters;
-import dev.fabien2s.annoyingapi.adapter.IGameAdapter;
+import dev.fabien2s.annoyingapi.adapter.AnnoyingAdapter;
 
 import java.util.Locale;
 
 public class EnumArgumentConverter<T, U extends Enum<U>> implements ICommandArgumentConverter<T, U, String> {
 
-    private static final DynamicCommandExceptionType INVALID_ENUM_EXCEPTION = new DynamicCommandExceptionType(input -> {
-        IGameAdapter gameAdapter = GameAdapters.INSTANCE;
-        return gameAdapter.translate("command.exception", input);
-    });
+    private static final DynamicCommandExceptionType INVALID_ENUM_EXCEPTION = new DynamicCommandExceptionType(input ->
+            AnnoyingAdapter.translate("command.exception", input)
+    );
 
     @Override
     public U convert(CommandContext<T> context, Class<U> type, String input) throws CommandSyntaxException {

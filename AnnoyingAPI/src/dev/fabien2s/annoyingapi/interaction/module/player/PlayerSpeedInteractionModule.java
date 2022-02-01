@@ -7,7 +7,7 @@ import dev.fabien2s.annoyingapi.interaction.Interaction;
 import dev.fabien2s.annoyingapi.interaction.InteractionInterruptCause;
 import dev.fabien2s.annoyingapi.interaction.InteractionManager;
 import dev.fabien2s.annoyingapi.magical.MagicalDouble;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import org.bukkit.NamespacedKey;
 
 import java.util.function.DoubleSupplier;
@@ -30,8 +30,8 @@ public class PlayerSpeedInteractionModule implements IInteractionModule {
         String name = interaction.getName();
         this.id = AnnoyingPlugin.createKey(name + ".walkSpeed");
 
-        GamePlayer gamePlayer = interactionManager.getGamePlayer();
-        MagicalDouble walkSpeed = gamePlayer.getWalkSpeed();
+        AnnoyingPlayer annoyingPlayer = interactionManager.getAnnoyingPlayer();
+        MagicalDouble walkSpeed = annoyingPlayer.getWalkSpeed();
         walkSpeed.addModifier(id, operation, valueProvider);
     }
 
@@ -41,8 +41,8 @@ public class PlayerSpeedInteractionModule implements IInteractionModule {
 
     @Override
     public void onInteractionExit(Interaction interaction, InteractionManager interactionManager, InteractionInterruptCause cause) {
-        GamePlayer gamePlayer = interactionManager.getGamePlayer();
-        MagicalDouble walkSpeed = gamePlayer.getWalkSpeed();
+        AnnoyingPlayer annoyingPlayer = interactionManager.getAnnoyingPlayer();
+        MagicalDouble walkSpeed = annoyingPlayer.getWalkSpeed();
         walkSpeed.removeModifier(id);
 
         this.id = null;

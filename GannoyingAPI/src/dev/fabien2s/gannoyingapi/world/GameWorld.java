@@ -4,20 +4,18 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimap;
+import dev.fabien2s.annoyingapi.structure.StructureInstance;
 import dev.fabien2s.gannoyingapi.GamePlugin;
 import dev.fabien2s.gannoyingapi.world.object.IGameObjectBuilder;
 import dev.fabien2s.gannoyingapi.world.object.impl.SoundEmitterObject;
 import lombok.Getter;
-import dev.fabien2s.annoyingapi.adapter.player.IPlayerController;
 import dev.fabien2s.annoyingapi.math.RandomHelper;
 import dev.fabien2s.annoyingapi.nbt.tag.NbtCompound;
 import dev.fabien2s.annoyingapi.player.PlayerList;
 import dev.fabien2s.annoyingapi.sound.ISoundListener;
-import dev.fabien2s.annoyingapi.structure.Structure;
-import dev.fabien2s.annoyingapi.structure.StructureInstance;
 import dev.fabien2s.annoyingapi.util.ITickable;
 import dev.fabien2s.annoyingapi.util.Minecraft;
-import dev.fabien2s.gannoyingapi.player.ActiveGamePlayer;
+import dev.fabien2s.gannoyingapi.player.GamePlayer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bukkit.*;
@@ -85,7 +83,7 @@ public class GameWorld implements ITickable, ISoundListener {
     private boolean checkForRemoval(GameObject gameObject) {
         if (gameObject.isRemoved()) {
             PlayerList playerList = plugin.getPlayerList();
-            playerList.forPlayers(ActiveGamePlayer.class, gameObject::unregister);
+            playerList.forPlayers(GamePlayer.class, gameObject::unregister);
 
             gameObject.reset();
 
@@ -118,7 +116,7 @@ public class GameWorld implements ITickable, ISoundListener {
             this.gameObjects.add(gameObject);
 
         PlayerList playerList = plugin.getPlayerList();
-        playerList.forPlayers(ActiveGamePlayer.class, gameObject::register);
+        playerList.forPlayers(GamePlayer.class, gameObject::register);
 
         return gameObject;
     }

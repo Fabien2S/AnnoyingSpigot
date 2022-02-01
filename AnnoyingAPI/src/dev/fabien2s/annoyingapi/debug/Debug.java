@@ -1,10 +1,13 @@
 package dev.fabien2s.annoyingapi.debug;
 
+import dev.fabien2s.annoyingapi.AnnoyingPlugin;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.messaging.PluginMessageRecipient;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Vector;
 
@@ -19,6 +22,9 @@ public class Debug {
             Color.WHITE,
             1
     );
+
+    private static final String CHANNEL_ADD_MARKER = "minecraft:debug/game_test_add_marker";
+    private static final String CHANNEL_CLEAR_MARKERS = "minecraft:debug/game_test_clear";
 
     private Debug() {
     }
@@ -55,19 +61,27 @@ public class Debug {
         Debug.drawBoundingBox(player::spawnParticle, box);
     }
 
+    public static void drawBoundingBox(Player player, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+        Debug.drawBoundingBox(player::spawnParticle, minX, minY, minZ, maxX, maxY, maxZ);
+    }
+
     public static void drawBoundingBox(World world, BoundingBox box) {
         Debug.drawBoundingBox(world::spawnParticle, box);
     }
 
+    public static void drawBoundingBox(World player, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+        Debug.drawBoundingBox(player::spawnParticle, minX, minY, minZ, maxX, maxY, maxZ);
+    }
+
     public static void drawBoundingBox(Drawable drawable, BoundingBox box) {
-        double minX = box.getMinX();
-        double minY = box.getMinY();
-        double minZ = box.getMinZ();
+        drawBoundingBox(
+                drawable,
+                box.getMinX(), box.getMinY(), box.getMinZ(),
+                box.getMaxX(), box.getMaxY(), box.getMaxZ()
+        );
+    }
 
-        double maxX = box.getMaxX();
-        double maxY = box.getMaxY();
-        double maxZ = box.getMaxZ();
-
+    public static void drawBoundingBox(Drawable drawable, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
         for (double x = minX; x < maxX; x += DENSITY) {
             drawable.draw(PARTICLE, x, minY, minZ, 1, 0, 0, 0, 0, DEFAULT_OPTIONS);
             drawable.draw(PARTICLE, x, minY, maxZ, 1, 0, 0, 0, 0, DEFAULT_OPTIONS);
@@ -89,6 +103,16 @@ public class Debug {
             drawable.draw(PARTICLE, maxX, maxY, z, 1, 0, 0, 0, 0, DEFAULT_OPTIONS);
         }
     }
+
+//    public static void drawMarker(PluginMessageRecipient recipient) {
+//        AnnoyingPlugin instance = AnnoyingPlugin.getInstance();
+//        recipient.sendPluginMessage(instance, CHANNEL_ADD_MARKER, );
+//    }
+//
+//    public static void clearMarkers(PluginMessageRecipient recipient) {
+//        AnnoyingPlugin instance = AnnoyingPlugin.getInstance();
+//        recipient.sendPluginMessage(instance, CHANNEL_ADD_MARKER, new byte[0]);
+//    }
 
     private interface Drawable {
         <T> void draw(Particle particle, double x, double y, double z, int count, double offsetX, double offsetY, double offsetZ, double extra, @Nullable T data);

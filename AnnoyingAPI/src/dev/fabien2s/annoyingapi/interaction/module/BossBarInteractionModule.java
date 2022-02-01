@@ -6,7 +6,7 @@ import dev.fabien2s.annoyingapi.interaction.InteractionInterruptCause;
 import dev.fabien2s.annoyingapi.interaction.InteractionManager;
 import dev.fabien2s.annoyingapi.interaction.InteractionSamplingMode;
 import dev.fabien2s.annoyingapi.magical.IValueSupplier;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import dev.fabien2s.annoyingapi.util.BossBarHelper;
 import org.bukkit.NamespacedKey;
 import org.bukkit.boss.BarColor;
@@ -20,8 +20,8 @@ public class BossBarInteractionModule implements IInteractionModule {
     public void onInteractionEnter(Interaction interaction, InteractionManager interactionManager) {
         String name = interaction.getName();
         NamespacedKey key = AnnoyingPlugin.createKey(name);
-        GamePlayer gamePlayer = interactionManager.getGamePlayer();
-        this.bossBar = BossBarHelper.create(key, gamePlayer);
+        AnnoyingPlayer annoyingPlayer = interactionManager.getAnnoyingPlayer();
+        this.bossBar = BossBarHelper.create(key, annoyingPlayer);
     }
 
     @Override

@@ -5,7 +5,7 @@ import org.bukkit.entity.Entity;
 
 public enum EntityFlag {
 
-    BURNING(Entity.class),
+    ON_FIRE(Entity.class),
     SNEAKING(Entity.class),
     SPRINTING(Entity.class),
     SWIMMING(Entity.class),

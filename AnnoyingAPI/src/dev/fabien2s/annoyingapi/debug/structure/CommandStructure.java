@@ -10,8 +10,7 @@ import dev.fabien2s.annoyingapi.command.CommandNode;
 import dev.fabien2s.annoyingapi.command.ICommandContext;
 import dev.fabien2s.annoyingapi.command.suggestion.SuggestionHelper;
 import dev.fabien2s.annoyingapi.player.PlayerList;
-import dev.fabien2s.annoyingapi.structure.Structure;
-import dev.fabien2s.annoyingapi.structure.StructureManager;
+import dev.fabien2s.annoyingapi.structure.StructureAnchorManager;
 import dev.fabien2s.annoyingapi.command.annotation.Arg;
 import dev.fabien2s.annoyingapi.command.annotation.FunctionInfo;
 import org.bukkit.Location;
@@ -67,7 +66,7 @@ public class CommandStructure extends CommandNode {
         Player player = context.requiresPlayer();
 
         AnnoyingPlugin plugin = context.getPlugin();
-        StructureManager structureManager = plugin.getStructureManager();
+        StructureAnchorManager structureManager = plugin.getStructureManager();
         try {
             Structure structure = structureManager.load(name);
 
@@ -119,7 +118,7 @@ public class CommandStructure extends CommandNode {
 
         try {
             AnnoyingPlugin plugin = context.getPlugin();
-            StructureManager structureManager = plugin.getStructureManager();
+            StructureAnchorManager structureManager = plugin.getStructureManager();
             Structure structure = structureManager.load(name);
 
             Block origin = location.getBlock();
@@ -147,7 +146,7 @@ public class CommandStructure extends CommandNode {
         @Override
         public CompletableFuture<Suggestions> getSuggestions(CommandContext<T> commandContext, SuggestionsBuilder suggestionsBuilder) {
             AnnoyingPlugin plugin = AnnoyingPlugin.getPlugin(AnnoyingPlugin.class);
-            StructureManager structureManager = plugin.getStructureManager();
+            StructureAnchorManager structureManager = plugin.getStructureManager();
             Collection<NamespacedKey> structures = structureManager.getStructures();
             return SuggestionHelper.suggestIdentifier(structures, suggestionsBuilder);
         }

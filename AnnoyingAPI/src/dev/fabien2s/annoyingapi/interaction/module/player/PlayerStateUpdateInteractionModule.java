@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import dev.fabien2s.annoyingapi.interaction.Interaction;
 import dev.fabien2s.annoyingapi.interaction.InteractionInterruptCause;
 import dev.fabien2s.annoyingapi.interaction.InteractionManager;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import dev.fabien2s.annoyingapi.statemachine.IState;
 
 import java.util.function.Supplier;
@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 @RequiredArgsConstructor
 public class PlayerStateUpdateInteractionModule implements IInteractionModule {
 
-    private final Supplier<IState<GamePlayer>> stateSupplier;
+    private final Supplier<IState<AnnoyingPlayer>> stateSupplier;
 
     @Override
     public void onInteractionEnter(Interaction interaction, InteractionManager interactionManager) {
@@ -28,9 +28,9 @@ public class PlayerStateUpdateInteractionModule implements IInteractionModule {
         if (cause.isCancelled())
             return;
 
-        GamePlayer gamePlayer = interactionManager.getGamePlayer();
-        IState<GamePlayer> playerState = stateSupplier.get();
-        gamePlayer.setState(playerState);
+        AnnoyingPlayer annoyingPlayer = interactionManager.getAnnoyingPlayer();
+        IState<AnnoyingPlayer> playerState = stateSupplier.get();
+        annoyingPlayer.setState(playerState);
     }
 
 }

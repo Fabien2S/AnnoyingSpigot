@@ -10,6 +10,5 @@ public class GuiView {
 
     @Getter private final GuiWindow window;
     @Getter private final InventoryView view;
-    @Getter @Setter private String input;
 
 }

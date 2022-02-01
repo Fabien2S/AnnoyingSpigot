@@ -3,18 +3,17 @@ package dev.fabien2s.annoyingapi.debug.structure;
 import dev.fabien2s.annoyingapi.AnnoyingPlugin;
 import dev.fabien2s.annoyingapi.debug.Debug;
 import dev.fabien2s.annoyingapi.math.VectorHelper;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
-import dev.fabien2s.annoyingapi.player.IPlayerControllerProvider;
-import dev.fabien2s.annoyingapi.structure.Structure;
-import dev.fabien2s.annoyingapi.structure.StructureManager;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
+import dev.fabien2s.annoyingapi.structure.StructureAnchor;
+import dev.fabien2s.annoyingapi.structure.StructureAnchorManager;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
+import org.bukkit.Server;
 import org.bukkit.entity.Player;
+import org.bukkit.structure.Structure;
+import org.bukkit.structure.StructureManager;
 import org.bukkit.util.BlockVector;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Vector;
@@ -22,21 +21,21 @@ import org.bukkit.util.Vector;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.Collection;
 
-public class StructureBuilderPlayer extends GamePlayer {
+public class StructureBuilderPlayer extends AnnoyingPlayer {
 
     private static final double PARTICLE_DELAY = .75;
     private static final DecimalFormat POSITION_FORMAT = new DecimalFormat("#.##");
 
     private Structure structure;
-    private BlockVector structurePosition;
-    private BoundingBox structureBox;
+    private StructureAnchor[] anchors;
+    private NamespacedKey structureName;
+    private Location structurePosition;
 
     private double particleTime;
 
-    protected StructureBuilderPlayer(AnnoyingPlugin plugin, Player spigotPlayer, IPlayerControllerProvider controllerProvider) {
-        super(plugin, new NamespacedKey(plugin, "structure_builder"), spigotPlayer, controllerProvider);
+    protected StructureBuilderPlayer(AnnoyingPlugin plugin, Player spigotPlayer) {
+        super(plugin, new NamespacedKey(plugin, "structure_builder"), spigotPlayer);
     }
 
     @Override
@@ -47,35 +46,42 @@ public class StructureBuilderPlayer extends GamePlayer {
         if (this.particleTime >= PARTICLE_DELAY) {
             this.particleTime = 0;
 
-            Debug.drawBoundingBox(spigotPlayer, structureBox);
+            BlockVector structureSize = structure.getSize();
+            Debug.drawBoundingBox(
+                    spigotPlayer,
+                    structurePosition.getBlockX(),
+                    structurePosition.getBlockY(),
+                    structurePosition.getBlockZ(),
+                    structureSize.getBlockX(),
+                    structureSize.getBlockY(),
+                    structureSize.getBlockZ()
+            );
 
             BoundingBox playerBoundingBox = spigotPlayer.getBoundingBox();
 
             @Nullable
-            Structure.Anchor overlappingAnchor = null;
+            StructureAnchor overlappingAnchor = null;
 
-            Collection<Structure.Anchor> structureAnchors = structure.getAnchors();
-            for (Structure.Anchor structureAnchor : structureAnchors) {
-                Location anchorLocation = structureAnchor.toLocation().add(structurePosition);
-                BoundingBox anchorBoundingBox = BoundingBox.of(anchorLocation, .5, .5, .5);
+            for (StructureAnchor structureAnchor : anchors) {
+                Location location = structureAnchor.location();
+                BoundingBox anchorBoundingBox = BoundingBox.of(location, .5, .5, .5);
                 Debug.drawBoundingBox(spigotPlayer, anchorBoundingBox);
 
                 if (playerBoundingBox.overlaps(anchorBoundingBox))
                     overlappingAnchor = structureAnchor;
 
-                float yaw = structureAnchor.getYaw();
-                float pitch = structureAnchor.getPitch();
+                float yaw = location.getYaw();
+                float pitch = location.getPitch();
                 Vector direction = VectorHelper.direction(yaw, pitch);
-                Debug.drawRay(spigotPlayer, anchorLocation, direction, 1);
+                Debug.drawRay(spigotPlayer, location, direction, 1);
             }
 
-            String structureName = structure.getName();
             Location playerLocation = spigotPlayer.getLocation();
             double relX = playerLocation.getX() - structurePosition.getX();
             double relY = playerLocation.getY() - structurePosition.getY();
             double relZ = playerLocation.getZ() - structurePosition.getZ();
 
-            ComponentBuilder builder = new ComponentBuilder(structureName)
+            ComponentBuilder builder = new ComponentBuilder(structureName.toString())
                     .color(ChatColor.BLUE)
                     .append(" - ")
                     .color(ChatColor.GRAY)
@@ -91,8 +97,8 @@ public class StructureBuilderPlayer extends GamePlayer {
                     .color(ChatColor.GREEN);
 
             if (overlappingAnchor != null) {
-                String anchorName = overlappingAnchor.getName();
-                String anchorTag = overlappingAnchor.getTag();
+                String anchorName = overlappingAnchor.name();
+                String anchorTag = overlappingAnchor.tag();
                 builder.append(" / ")
                         .color(ChatColor.GRAY)
                         .append(anchorName)
@@ -101,6 +107,7 @@ public class StructureBuilderPlayer extends GamePlayer {
                         .append(anchorTag);
             }
 
+            this.spigotPlayer.sendTitle();
             this.controller.sendActionBar(builder
                     .create()
             );
@@ -109,66 +116,41 @@ public class StructureBuilderPlayer extends GamePlayer {
     }
 
     private void synchronizeStructure() {
-        World world = spigotPlayer.getWorld();
-
-        int posX = structurePosition.getBlockX();
-        int posY = structurePosition.getBlockY();
-        int posZ = structurePosition.getBlockZ();
-
-        int sizeX = structure.getSizeX();
-        int sizeY = structure.getSizeY();
-        int sizeZ = structure.getSizeZ();
-        for (int x = 0; x < sizeX; x++) {
-            for (int y = 0; y < sizeY; y++) {
-                for (int z = 0; z < sizeZ; z++) {
-                    Block block = world.getBlockAt(posX + x, posY + y, posZ + z);
-                    BlockData blockData = block.getBlockData();
-                    this.structure.setBlock(x, y, z, blockData);
-                }
-            }
-        }
+        BlockVector structureSize = structure.getSize();
+        this.structure.fill(structurePosition, structureSize, true);
     }
 
-    public void editStructure(Structure structure, BlockVector position) {
-        this.structure = structure;
-        this.structurePosition = position;
-        this.structureBox = BoundingBox.of(
-                position,
-                position.clone().add(new Vector(
-                        structure.getSizeX(),
-                        structure.getSizeY(),
-                        structure.getSizeZ()
-                ))
-        );
+    public void editStructure(NamespacedKey structureName, Location location) {
+        Server server = plugin.getServer();
+        StructureManager structureManager = server.getStructureManager();
+        Structure structure = structureManager.loadStructure(structureName, false);
+        editStructure(structureName, structure, location);
     }
 
-    public void editStructure(String name, BlockVector position, BlockVector size) {
-        try {
-            StructureManager structureManager = plugin.getStructureManager();
-            NamespacedKey namespacedKey = new NamespacedKey(plugin, name);
-            this.structure = structureManager.load(namespacedKey);
-        } catch (IOException e) {
-            this.structure = new Structure(name, size.getBlockX(), size.getBlockY(), size.getBlockZ());
-        }
+    public void editStructure(NamespacedKey structureName, @Nullable Structure structure, Location location) {
+        this.structureName = structureName;
 
-        this.structurePosition = position;
-        this.structureBox = BoundingBox.of(
-                position,
-                position.clone().add(size)
-        );
+        if (structure == null) {
+            Server server = plugin.getServer();
+            StructureManager structureManager = server.getStructureManager();
+            this.structure = structureManager.createStructure();
+            this.anchors = new StructureAnchor[0];
+        } else {
+            this.structure = structure;
+            this.anchors = StructureAnchorManager.loadAnchors(structure);
+        }
+        this.structurePosition = location;
     }
 
     public boolean saveStructure() {
         this.synchronizeStructure();
 
         try {
-            String structureName = structure.getName();
-            NamespacedKey namespacedKey = new NamespacedKey(plugin, structureName);
-
-            StructureManager structureManager = plugin.getStructureManager();
-            return structureManager.save(structure, namespacedKey);
+            Server server = plugin.getServer();
+            StructureManager structureManager = server.getStructureManager();
+            structureManager.saveStructure(structureName, structure);
+            return true;
         } catch (IOException e) {
-            e.printStackTrace();
             return false;
         }
     }

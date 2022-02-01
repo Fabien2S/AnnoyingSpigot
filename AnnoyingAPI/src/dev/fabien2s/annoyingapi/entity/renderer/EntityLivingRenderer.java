@@ -2,7 +2,6 @@ package dev.fabien2s.annoyingapi.entity.renderer;
 
 import dev.fabien2s.annoyingapi.entity.EntityAnimation;
 import dev.fabien2s.annoyingapi.util.HandType;
-import dev.fabien2s.annoyingapi.adapter.player.IPlayerController;
 import dev.fabien2s.annoyingapi.entity.controller.IEntityController;
 import org.bukkit.EntityEffect;
 import org.bukkit.entity.LivingEntity;

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.Location;
 
 @RequiredArgsConstructor
-public class WrappedLocation implements IUnsafeEntityLocation{
+public class WrappedLocation implements IUnsafeEntityLocation {
 
     private final Location location;
 

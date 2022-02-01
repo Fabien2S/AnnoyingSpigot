@@ -1,9 +1,9 @@
 package dev.fabien2s.gannoyingapi.lobby.state;
 
 import dev.fabien2s.annoyingapi.AnnoyingPlugin;
-import dev.fabien2s.annoyingapi.event.player.GamePlayerTeleportConfirmEvent;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
-import dev.fabien2s.annoyingapi.player.IGamePlayerProvider;
+import dev.fabien2s.annoyingapi.event.player.PlayerReadyAnnoyingEvent;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
+import dev.fabien2s.annoyingapi.player.IPlayerProvider;
 import dev.fabien2s.annoyingapi.player.PlayerList;
 import dev.fabien2s.annoyingapi.statemachine.IState;
 import dev.fabien2s.annoyingapi.util.BossBarHelper;
@@ -110,7 +110,7 @@ public class LobbyInitializeGameState implements IState<GamePlugin>, Listener {
             if (selectedRole == null)
                 continue;
 
-            IGamePlayerProvider<AnnoyingPlugin> playerProvider = plugin.getPlayerProvider(selectedRole);
+            IPlayerProvider<AnnoyingPlugin> playerProvider = plugin.getPlayerProvider(selectedRole);
             if (playerProvider == null)
                 continue;
 
@@ -130,14 +130,14 @@ public class LobbyInitializeGameState implements IState<GamePlugin>, Listener {
     }
 
     @EventHandler
-    private void onPlayerTeleportConfirm(GamePlayerTeleportConfirmEvent event) {
-        GamePlayer gamePlayer = event.getGamePlayer();
-        Player spigotPlayer = gamePlayer.getSpigotPlayer();
+    private void onPlayerTeleportConfirm(PlayerReadyAnnoyingEvent event) {
+        AnnoyingPlayer annoyingPlayer = event.getAnnoyingPlayer();
+        Player spigotPlayer = annoyingPlayer.getSpigotPlayer();
         World playerWorld = spigotPlayer.getWorld();
 
         World spigotWorld = gameWorld.getSpigotWorld();
-        if (spigotWorld.equals(playerWorld) && gamePlayer instanceof LobbyPlayer)
-            this.validatePlayer((LobbyPlayer) gamePlayer);
+        if (spigotWorld.equals(playerWorld) && annoyingPlayer instanceof LobbyPlayer)
+            this.validatePlayer((LobbyPlayer) annoyingPlayer);
     }
 
     private void validatePlayer(LobbyPlayer gamePlayer) {

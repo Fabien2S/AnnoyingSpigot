@@ -9,7 +9,7 @@ import dev.fabien2s.annoyingapi.AnnoyingPlugin;
 import dev.fabien2s.annoyingapi.command.CommandNode;
 import dev.fabien2s.annoyingapi.command.ICommandContext;
 import dev.fabien2s.annoyingapi.command.annotation.FunctionInfo;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import dev.fabien2s.annoyingapi.player.PlayerList;
 import dev.fabien2s.gannoyingapi.GamePlugin;
 import dev.fabien2s.gannoyingapi.lobby.LobbyPlayer;
@@ -33,7 +33,7 @@ public class CommandLobby extends CommandNode {
 
         AnnoyingPlugin plugin = context.getPlugin();
         PlayerList playerList = plugin.getPlayerList();
-        GamePlayer currentPlayer = playerList.getPlayer(player);
+        AnnoyingPlayer currentPlayer = playerList.getPlayer(player);
         if (currentPlayer instanceof LobbyPlayer) {
             ((LobbyPlayer) currentPlayer).setSelectedRole(roleKey);
             context.sendMessage("Set own game role to " + roleKey, true);

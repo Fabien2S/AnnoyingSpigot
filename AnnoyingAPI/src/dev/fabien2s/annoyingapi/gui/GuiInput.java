@@ -1,10 +1,11 @@
 package dev.fabien2s.annoyingapi.gui;
 
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import lombok.Getter;
 import lombok.Setter;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.apache.commons.lang3.Validate;
+import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.Inventory;
 
 import javax.annotation.Nullable;
@@ -19,14 +20,15 @@ public class GuiInput extends GuiWindow {
     }
 
     @Override
-    boolean handleClick(GamePlayer gamePlayer, GuiView view, int slot) {
+    boolean handleClick(AnnoyingPlayer annoyingPlayer, GuiView view, int slot) {
         if (slot == 2 && inputHandler != null) {
-            String input = view.getInput();
+            AnvilInventory inventory = (AnvilInventory) getInventory();
+            String input = inventory.getRenameText();
             if (input != null)
-                this.inputHandler.onInput(gamePlayer, input);
+                this.inputHandler.onInput(annoyingPlayer, input);
         }
 
-        return super.handleClick(gamePlayer, view, slot);
+        return super.handleClick(annoyingPlayer, view, slot);
     }
 
     public void setInputLeft(GuiButton button) {
@@ -56,7 +58,7 @@ public class GuiInput extends GuiWindow {
     }
 
     public interface IInputHandler {
-        void onInput(GamePlayer gamePlayer, String input);
+        void onInput(AnnoyingPlayer annoyingPlayer, String input);
     }
 
 }

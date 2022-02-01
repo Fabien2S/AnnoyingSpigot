@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import dev.fabien2s.annoyingapi.interaction.InteractionManager;
 import dev.fabien2s.annoyingapi.math.IUnsafeEntityLocation;
 import dev.fabien2s.annoyingapi.math.VectorHelper;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
@@ -18,17 +18,17 @@ public class AngleInteractionConstraint implements IInteractionConstraint {
 
     @Override
     public boolean canInteract(InteractionManager interactionManager) {
-        GamePlayer gamePlayer = interactionManager.getGamePlayer();
+        AnnoyingPlayer annoyingPlayer = interactionManager.getAnnoyingPlayer();
         Location anchorLocation = location.getUnsafeLocation();
-        Location playerLocation = gamePlayer.getUnsafeLocation();
+        Location playerLocation = annoyingPlayer.getUnsafeLocation();
         return VectorHelper.inAngle(anchorLocation, playerLocation, anchorToPlayerLimit) && VectorHelper.inAngle(playerLocation, anchorLocation, playerToAnchorLimit);
     }
 
     @Override
     public double computePriority(InteractionManager interactionManager) {
-        GamePlayer gamePlayer = interactionManager.getGamePlayer();
+        AnnoyingPlayer annoyingPlayer = interactionManager.getAnnoyingPlayer();
         Location anchorLocation = location.getUnsafeLocation();
-        Location playerLocation = gamePlayer.getUnsafeLocation();
+        Location playerLocation = annoyingPlayer.getUnsafeLocation();
 
         double priority = 0;
 

@@ -1,6 +1,5 @@
 package dev.fabien2s.annoyingapi.entity.renderer;
 
-import dev.fabien2s.annoyingapi.adapter.GameAdapters;
 import dev.fabien2s.annoyingapi.entity.tracker.IEntityTracker;
 import dev.fabien2s.annoyingapi.util.ScoreboardHelper;
 import org.bukkit.entity.Entity;

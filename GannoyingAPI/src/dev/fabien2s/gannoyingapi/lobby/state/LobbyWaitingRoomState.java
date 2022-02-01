@@ -5,7 +5,7 @@ import dev.fabien2s.gannoyingapi.ingame.SpectatorPlayer;
 import dev.fabien2s.gannoyingapi.lobby.LobbyPlayer;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import dev.fabien2s.annoyingapi.player.PlayerList;
 import dev.fabien2s.annoyingapi.statemachine.IState;
 import dev.fabien2s.annoyingapi.util.BossBarHelper;
@@ -82,7 +82,7 @@ public class LobbyWaitingRoomState implements IState<GamePlugin>, Listener {
 
             LOGGER.info("Player {} joined ({}/{})", player.getName(), connectedPlayers, maximumPlayer);
 
-            GamePlayer lobbyPlayer = playerList.setPlayer(player, LobbyPlayer::new);
+            AnnoyingPlayer lobbyPlayer = playerList.setPlayer(player, LobbyPlayer::new);
             this.lobbyPlayerMap.put(player, (LobbyPlayer) lobbyPlayer);
         }
 

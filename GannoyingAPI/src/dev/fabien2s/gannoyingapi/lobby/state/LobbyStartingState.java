@@ -3,7 +3,6 @@ package dev.fabien2s.gannoyingapi.lobby.state;
 import dev.fabien2s.gannoyingapi.GamePlugin;
 import dev.fabien2s.gannoyingapi.lobby.LobbyPlayer;
 import lombok.RequiredArgsConstructor;
-import dev.fabien2s.annoyingapi.adapter.player.IPlayerController;
 import dev.fabien2s.annoyingapi.statemachine.IState;
 import dev.fabien2s.annoyingapi.util.Minecraft;
 import org.apache.logging.log4j.LogManager;

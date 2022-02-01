@@ -1,6 +1,6 @@
 package dev.fabien2s.gannoyingapi.world.object;
 
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import dev.fabien2s.gannoyingapi.world.GameWorld;
 import dev.fabien2s.gannoyingapi.world.lod.LodController;
 import org.bukkit.Location;
@@ -31,15 +31,15 @@ public abstract class LodWorldObject extends WorldObject implements IGameObjectR
     }
 
     @Override
-    public void register(GamePlayer gamePlayer) {
-        super.register(gamePlayer);
-        this.lodController.addPlayer(gamePlayer);
+    public void register(AnnoyingPlayer annoyingPlayer) {
+        super.register(annoyingPlayer);
+        this.lodController.addPlayer(annoyingPlayer);
     }
 
     @Override
-    public void unregister(GamePlayer gamePlayer) {
-        super.unregister(gamePlayer);
-        this.lodController.removePlayer(gamePlayer);
+    public void unregister(AnnoyingPlayer annoyingPlayer) {
+        super.unregister(annoyingPlayer);
+        this.lodController.removePlayer(annoyingPlayer);
     }
 
     protected abstract void registerStates(LodController controller);

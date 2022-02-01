@@ -1,8 +1,7 @@
 package dev.fabien2s.annoyingapi.command;
 
 import dev.fabien2s.annoyingapi.AnnoyingPlugin;
-import dev.fabien2s.annoyingapi.adapter.GameAdapters;
-import dev.fabien2s.annoyingapi.adapter.IGameAdapter;
+import dev.fabien2s.annoyingapi.adapter.command.CommandRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bukkit.Server;
@@ -20,9 +19,8 @@ public class CommandManager {
     private final Map<String, CommandNode> commandMap = new HashMap<>();
 
     public CommandManager(AnnoyingPlugin plugin) {
-        IGameAdapter gameAdapter = GameAdapters.INSTANCE;
         Server server = plugin.getServer();
-        this.registry = gameAdapter.createCommandRegistry(server);
+        this.registry = new CommandRegistry(server);
     }
 
     public void registerCommand(Supplier<CommandNode> commandFunction) {
@@ -45,9 +43,9 @@ public class CommandManager {
     }
 
     public void unregisterAll() {
-        /*LOGGER.info("Unregistering {} command(s)", commandMap.size());
+        LOGGER.info("Unregistering {} command(s)", commandMap.size());
         this.commandMap.forEach((name, command) -> this.registry.unregisterCommand(command));
-        this.commandMap.clear();*/
+        this.commandMap.clear();
     }
 
 }

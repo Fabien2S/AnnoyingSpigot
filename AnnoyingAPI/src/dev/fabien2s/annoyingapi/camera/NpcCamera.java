@@ -2,17 +2,19 @@ package dev.fabien2s.annoyingapi.camera;
 
 import com.mojang.authlib.GameProfile;
 import dev.fabien2s.annoyingapi.AnnoyingPlugin;
+import dev.fabien2s.annoyingapi.adapter.npc.NPCAdapter;
+import dev.fabien2s.annoyingapi.entity.renderer.EntityPlayerRenderer;
+import dev.fabien2s.annoyingapi.entity.renderer.EntityRenderer;
+import dev.fabien2s.annoyingapi.entity.renderer.EntityRendererManager;
 import dev.fabien2s.annoyingapi.math.VectorHelper;
-import dev.fabien2s.annoyingapi.npc.Npc;
-import dev.fabien2s.annoyingapi.npc.NpcManager;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
+import dev.fabien2s.annoyingapi.player.PlayerList;
 import dev.fabien2s.annoyingapi.skin.ISkinHolder;
 import dev.fabien2s.annoyingapi.skin.Skin;
 import lombok.Getter;
 import lombok.Setter;
-import dev.fabien2s.annoyingapi.adapter.player.IPlayerController;
-import dev.fabien2s.annoyingapi.entity.renderer.EntityPlayerRenderer;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
-import dev.fabien2s.annoyingapi.player.PlayerList;
+import org.bukkit.*;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
@@ -22,11 +24,11 @@ import javax.annotation.Nullable;
 
 public class NpcCamera extends PlayerCamera {
 
-    @Getter protected Npc npc;
+    @Getter protected HumanEntity npc;
 
     @Getter @Setter private String name;
 
-    public NpcCamera(GamePlayer player) {
+    public NpcCamera(AnnoyingPlayer player) {
         super(player);
     }
 
@@ -34,10 +36,8 @@ public class NpcCamera extends PlayerCamera {
     public void init(Location location) {
         super.init(location);
 
-        AnnoyingPlugin plugin = player.getPlugin();
-        NpcManager npcManager = plugin.getNpcManager();
         String npcName = name == null ? "anim_" + hashCode() : name;
-        GameProfile gameProfile = npcManager.createProfile(npcName);
+        GameProfile gameProfile = NPCAdapter.createProfile(npcName);
 
         if (player instanceof ISkinHolder) {
             ISkinHolder skinHolder = (ISkinHolder) this.player;
@@ -51,21 +51,13 @@ public class NpcCamera extends PlayerCamera {
         spigotPlayer.teleport(location);
         spigotPlayer.setVelocity(VectorHelper.zero());
 
-        this.npc = npcManager.spawnNpc(location, gameProfile);
-
-        if (spigotPlayer.hasPotionEffect(PotionEffectType.INVISIBILITY))
-            this.npc.spawn(player);
-        else {
-            PlayerList playerList = plugin.getPlayerList();
-            playerList.forEach(gamePlayer -> {
-                Player onlinePlayer = gamePlayer.getSpigotPlayer();
-                if (onlinePlayer.canSee(spigotPlayer))
-                    this.npc.spawn(gamePlayer);
-            });
-        }
+        this.npc = NPCAdapter.spawnNPC(location, gameProfile);
 
         EntityPlayerRenderer playerRenderer = player.getPlayerRenderer();
-        EntityPlayerRenderer npcRenderer = npc.getRenderer();
+        AnnoyingPlugin plugin = player.getPlugin();
+        EntityRendererManager rendererManager = plugin.getEntityRendererManager();
+        EntityPlayerRenderer npcRenderer = rendererManager.getRenderer(npc);
+
         playerRenderer.applyTo(npcRenderer);
 
         this.npc.spectate(player);
@@ -129,8 +121,8 @@ public class NpcCamera extends PlayerCamera {
     }
 
     public void applyGravity() {
-        /*double gravity = player.getGravity();
-        this.npc.move(0, gravity, 0);*/
+        double gravity = player.getGravity();
+        this.npc.move(0, gravity, 0);
     }
 
     public void forceRender() {

@@ -4,13 +4,13 @@ import dev.fabien2s.gannoyingapi.GamePlugin;
 import dev.fabien2s.gannoyingapi.world.object.IGameObjectRegistrable;
 import lombok.Getter;
 import dev.fabien2s.annoyingapi.math.IUnsafeEntityLocation;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import dev.fabien2s.annoyingapi.player.PlayerList;
 import dev.fabien2s.annoyingapi.sound.ISoundEmitter;
 import dev.fabien2s.annoyingapi.statemachine.IState;
 import dev.fabien2s.annoyingapi.statemachine.IStateMachine;
 import dev.fabien2s.annoyingapi.util.ITickable;
-import dev.fabien2s.gannoyingapi.player.ActiveGamePlayer;
+import dev.fabien2s.gannoyingapi.player.GamePlayer;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -76,7 +76,7 @@ public abstract class GameObject implements ITickable, IStateMachine<GameObject>
                 GamePlugin plugin = gameWorld.getPlugin();
                 PlayerList playerList = plugin.getPlayerList();
                 IGameObjectRegistrable registrable = (IGameObjectRegistrable) previousState;
-                playerList.forPlayers(ActiveGamePlayer.class, registrable::unregister);
+                playerList.forPlayers(GamePlayer.class, registrable::unregister);
             }
         }
 
@@ -86,20 +86,20 @@ public abstract class GameObject implements ITickable, IStateMachine<GameObject>
             GamePlugin plugin = gameWorld.getPlugin();
             PlayerList playerList = plugin.getPlayerList();
             IGameObjectRegistrable registrable = (IGameObjectRegistrable) state;
-            playerList.forPlayers(ActiveGamePlayer.class, registrable::register);
+            playerList.forPlayers(GamePlayer.class, registrable::register);
         }
     }
 
     @Override
-    public void register(GamePlayer gamePlayer) {
+    public void register(AnnoyingPlayer annoyingPlayer) {
         if (state instanceof IGameObjectRegistrable)
-            ((IGameObjectRegistrable) state).register(gamePlayer);
+            ((IGameObjectRegistrable) state).register(annoyingPlayer);
     }
 
     @Override
-    public void unregister(GamePlayer gamePlayer) {
+    public void unregister(AnnoyingPlayer annoyingPlayer) {
         if (state instanceof IGameObjectRegistrable)
-            ((IGameObjectRegistrable) state).unregister(gamePlayer);
+            ((IGameObjectRegistrable) state).unregister(annoyingPlayer);
     }
 
     public boolean is(Class<?> stateClass) {

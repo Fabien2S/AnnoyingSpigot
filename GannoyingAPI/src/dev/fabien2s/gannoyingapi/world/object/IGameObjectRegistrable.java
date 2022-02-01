@@ -1,11 +1,11 @@
 package dev.fabien2s.gannoyingapi.world.object;
 
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 
 public interface IGameObjectRegistrable {
 
-    void register(GamePlayer gamePlayer);
+    void register(AnnoyingPlayer annoyingPlayer);
 
-    void unregister(GamePlayer gamePlayer);
+    void unregister(AnnoyingPlayer annoyingPlayer);
 
 }

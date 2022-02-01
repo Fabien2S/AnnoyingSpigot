@@ -9,6 +9,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 
 public interface ICommandContext {
 
@@ -20,8 +21,10 @@ public interface ICommandContext {
 
     void sendError(BaseComponent message);
 
+    @NotNull
     Player requiresPlayer() throws CommandSyntaxException;
 
+    @NotNull
     Entity requiresEntity() throws CommandSyntaxException;
 
     String getName();

@@ -1,8 +1,7 @@
 package dev.fabien2s.gannoyingapi.lobby;
 
 import dev.fabien2s.annoyingapi.AnnoyingPlugin;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
-import dev.fabien2s.annoyingapi.player.IPlayerControllerProvider;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import dev.fabien2s.gannoyingapi.GamePlugin;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Set;
 
-public class LobbyPlayer extends GamePlayer {
+public class LobbyPlayer extends AnnoyingPlayer {
 
     public static final NamespacedKey ROLE_NAME = GamePlugin.createKey("lobby_player");
 
@@ -19,8 +18,8 @@ public class LobbyPlayer extends GamePlayer {
     @Setter
     private NamespacedKey selectedRole;
 
-    public LobbyPlayer(AnnoyingPlugin plugin, Player spigotPlayer, IPlayerControllerProvider controllerProvider) {
-        super(plugin, ROLE_NAME, spigotPlayer, controllerProvider);
+    public LobbyPlayer(AnnoyingPlugin plugin, Player spigotPlayer) {
+        super(plugin, ROLE_NAME, spigotPlayer);
     }
 
     @Override

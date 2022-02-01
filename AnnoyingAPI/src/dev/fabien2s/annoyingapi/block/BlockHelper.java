@@ -51,16 +51,12 @@ public final class BlockHelper {
     }
 
     private static int rotationToOffset(StructureRotation rotation) {
-        switch (rotation) {
-            case CLOCKWISE_90:
-                return CLOCKWISE_BLOCK_FACES.length / 4;
-            case CLOCKWISE_180:
-                return CLOCKWISE_BLOCK_FACES.length / 2;
-            case COUNTERCLOCKWISE_90:
-                return -(CLOCKWISE_BLOCK_FACES.length / 4);
-            default:
-                return 0;
-        }
+        return switch (rotation) {
+            case CLOCKWISE_90 -> CLOCKWISE_BLOCK_FACES.length / 4;
+            case CLOCKWISE_180 -> CLOCKWISE_BLOCK_FACES.length / 2;
+            case COUNTERCLOCKWISE_90 -> -(CLOCKWISE_BLOCK_FACES.length / 4);
+            default -> 0;
+        };
     }
 
     public static BlockFace rotate(BlockFace blockFace, StructureRotation rotation) {
@@ -89,23 +85,20 @@ public final class BlockHelper {
         if (rotation == StructureRotation.NONE)
             return blockData;
 
-        if (blockData instanceof Rotatable) {
-            Rotatable rotatable = (Rotatable) blockData;
+        if (blockData instanceof Rotatable rotatable) {
             BlockFace blockFace = rotatable.getRotation();
             BlockFace rotatedBlockFace = BlockHelper.rotate(blockFace, rotation);
             rotatable.setRotation(rotatedBlockFace);
         }
 
-        if (blockData instanceof Directional) {
-            Directional directional = (Directional) blockData;
+        if (blockData instanceof Directional directional) {
             Set<BlockFace> allowedFaces = directional.getFaces();
             BlockFace blockFace = directional.getFacing();
             BlockFace rotatedBlockFace = BlockHelper.rotate(allowedFaces, blockFace, rotation);
             directional.setFacing(rotatedBlockFace);
         }
 
-        if (blockData instanceof MultipleFacing) {
-            MultipleFacing multipleFacing = (MultipleFacing) blockData;
+        if (blockData instanceof MultipleFacing multipleFacing) {
 
             Set<BlockFace> activeFaces = multipleFacing.getFaces();
 
@@ -119,14 +112,11 @@ public final class BlockHelper {
             }
         }
 
-        if (blockData instanceof Orientable) {
-            Orientable orientable = (Orientable) blockData;
+        if (blockData instanceof Orientable orientable) {
             Axis axis = orientable.getAxis();
             if (axis != Axis.Y) {
                 switch (rotation) {
-                    case CLOCKWISE_90:
-                    case COUNTERCLOCKWISE_90:
-                        orientable.setAxis(axis == Axis.X ? Axis.Z : Axis.X);
+                    case CLOCKWISE_90, COUNTERCLOCKWISE_90 -> orientable.setAxis(axis == Axis.X ? Axis.Z : Axis.X);
                 }
             }
         }

@@ -3,11 +3,10 @@ package dev.fabien2s.annoyingapi.interaction.renderer;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
-import dev.fabien2s.annoyingapi.adapter.player.IPlayerController;
 import dev.fabien2s.annoyingapi.interaction.Interaction;
 import dev.fabien2s.annoyingapi.interaction.InteractionManager;
 import dev.fabien2s.annoyingapi.interaction.InteractionTrigger;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -42,8 +41,8 @@ public class ActionBarInteractionRenderer extends InteractionRenderer {
         if (renderTime < RENDER_NOW)
             return;
 
-        GamePlayer gamePlayer = interactionManager.getGamePlayer();
-        IPlayerController playerController = gamePlayer.getController();
+        AnnoyingPlayer annoyingPlayer = interactionManager.getAnnoyingPlayer();
+        IPlayerController playerController = annoyingPlayer.getController();
         playerController.sendActionBar(renderedComponents);
         this.renderTime = 0;
     }
@@ -98,8 +97,8 @@ public class ActionBarInteractionRenderer extends InteractionRenderer {
         this.renderedComponents = EMPTY;
         this.renderTime = Double.NaN;
 
-        GamePlayer gamePlayer = interactionManager.getGamePlayer();
-        IPlayerController playerController = gamePlayer.getController();
+        AnnoyingPlayer annoyingPlayer = interactionManager.getAnnoyingPlayer();
+        IPlayerController playerController = annoyingPlayer.getController();
         playerController.sendActionBar(EMPTY);
     }
 

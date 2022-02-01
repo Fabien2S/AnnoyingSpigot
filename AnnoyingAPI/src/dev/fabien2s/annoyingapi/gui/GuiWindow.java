@@ -1,6 +1,6 @@
 package dev.fabien2s.annoyingapi.gui;
 
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class GuiWindow {
             this.inventory.setItem(slot, button.getItemStack());
     }
 
-    boolean handleClick(GamePlayer gamePlayer, GuiView view, int slot) {
+    boolean handleClick(AnnoyingPlayer annoyingPlayer, GuiView view, int slot) {
         GuiButton button = buttonMap.get(slot);
         if (button == null)
             return false;
@@ -37,20 +37,20 @@ public class GuiWindow {
         if (clickHandler == null)
             return false;
 
-        clickHandler.onClick(gamePlayer);
+        clickHandler.onClick(annoyingPlayer);
         return true;
     }
 
-    @Nullable InventoryView open(GamePlayer gamePlayer) {
+    @Nullable InventoryView open(AnnoyingPlayer annoyingPlayer) {
         if (inventory == null)
             return null;
 
-        Player spigotPlayer = gamePlayer.getSpigotPlayer();
+        Player spigotPlayer = annoyingPlayer.getSpigotPlayer();
         return spigotPlayer.openInventory(inventory);
     }
 
-    void close(GamePlayer gamePlayer) {
-        Player spigotPlayer = gamePlayer.getSpigotPlayer();
+    void close(AnnoyingPlayer annoyingPlayer) {
+        Player spigotPlayer = annoyingPlayer.getSpigotPlayer();
         spigotPlayer.closeInventory();
     }
 

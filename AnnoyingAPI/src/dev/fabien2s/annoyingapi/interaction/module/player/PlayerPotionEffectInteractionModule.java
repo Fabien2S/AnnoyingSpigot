@@ -6,7 +6,7 @@ import dev.fabien2s.annoyingapi.interaction.Interaction;
 import dev.fabien2s.annoyingapi.interaction.InteractionInterruptCause;
 import dev.fabien2s.annoyingapi.interaction.InteractionManager;
 import dev.fabien2s.annoyingapi.magical.IValueSupplier;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import dev.fabien2s.annoyingapi.util.Minecraft;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -32,8 +32,8 @@ public class PlayerPotionEffectInteractionModule implements IInteractionModule {
                 amplifier, ambient, particles
         );
 
-        GamePlayer gamePlayer = interactionManager.getGamePlayer();
-        Player spigotPlayer = gamePlayer.getSpigotPlayer();
+        AnnoyingPlayer annoyingPlayer = interactionManager.getAnnoyingPlayer();
+        Player spigotPlayer = annoyingPlayer.getSpigotPlayer();
         this.applied = spigotPlayer.addPotionEffect(effect);
     }
 
@@ -44,8 +44,8 @@ public class PlayerPotionEffectInteractionModule implements IInteractionModule {
     @Override
     public void onInteractionExit(Interaction interaction, InteractionManager interactionManager, InteractionInterruptCause cause) {
         if (applied) {
-            GamePlayer gamePlayer = interactionManager.getGamePlayer();
-            Player spigotPlayer = gamePlayer.getSpigotPlayer();
+            AnnoyingPlayer annoyingPlayer = interactionManager.getAnnoyingPlayer();
+            Player spigotPlayer = annoyingPlayer.getSpigotPlayer();
             spigotPlayer.removePotionEffect(effectType);
         }
     }

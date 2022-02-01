@@ -1,11 +1,11 @@
 package dev.fabien2s.annoyingapi.entity.controller;
 
+import dev.fabien2s.annoyingapi.adapter.player.PlayerController;
 import dev.fabien2s.annoyingapi.entity.EntityFlag;
 import dev.fabien2s.annoyingapi.entity.EntityPose;
 import dev.fabien2s.annoyingapi.entity.tracker.IEntityTracker;
 import dev.fabien2s.annoyingapi.util.HandType;
 import dev.fabien2s.annoyingapi.util.ITickable;
-import dev.fabien2s.annoyingapi.adapter.player.IPlayerController;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -25,7 +25,7 @@ public interface IEntityController extends ITickable {
 
     Object createTeamPacket();
 
-    void forceUpdate(IPlayerController controller);
+    void forceUpdate(PlayerController controller);
 
     void updateTeam(@Nullable ChatColor color, @Nullable Team.OptionStatus nameTagVisibility, @Nullable Team.OptionStatus collision);
 

@@ -171,15 +171,11 @@ public class CommandBaker<T> {
     private ArgumentType<?> bakePrimitiveArgument(Arg arg, Class<?> parameterType) {
 
         if (parameterType.isAssignableFrom(String.class)) {
-            switch (arg.type()) {
-                case QUOTABLE_PHRASE:
-                    return StringArgumentType.string();
-                case GREEDY_PHRASE:
-                    return StringArgumentType.greedyString();
-                case SINGLE_WORD:
-                default:
-                    return StringArgumentType.word();
-            }
+            return switch (arg.string()) {
+                case SINGLE_WORD -> StringArgumentType.word();
+                case QUOTABLE_PHRASE -> StringArgumentType.string();
+                case GREEDY_PHRASE -> StringArgumentType.greedyString();
+            };
         } else if (parameterType.isAssignableFrom(boolean.class))
             return BoolArgumentType.bool();
 

@@ -1,10 +1,10 @@
 package dev.fabien2s.annoyingapi.listener;
 
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import dev.fabien2s.annoyingapi.player.PlayerList;
 import lombok.RequiredArgsConstructor;
 import dev.fabien2s.annoyingapi.debug.structure.StructureBuilderPlayer;
-import dev.fabien2s.annoyingapi.event.player.GamePlayerJumpEvent;
+import dev.fabien2s.annoyingapi.event.player.PlayerJumpAnnoyingEvent;
 import dev.fabien2s.annoyingapi.interaction.InteractionManager;
 import dev.fabien2s.annoyingapi.interaction.InteractionTrigger;
 import org.bukkit.Location;
@@ -89,20 +89,14 @@ public class PlayerInteractionListener implements Listener {
         Player player = event.getPlayer();
         Action action = event.getAction();
         switch (action) {
-            case LEFT_CLICK_BLOCK:
-            case LEFT_CLICK_AIR:
-                this.playerList.forPlayer(player, gamePlayer -> {
-                    InteractionManager interactionManager = gamePlayer.getInteractionManager();
-                    interactionManager.dispatch(InteractionTrigger.ATTACK);
-                });
-                break;
-            case RIGHT_CLICK_BLOCK:
-            case RIGHT_CLICK_AIR:
-                this.playerList.forPlayer(player, gamePlayer -> {
-                    InteractionManager interactionManager = gamePlayer.getInteractionManager();
-                    interactionManager.dispatch(InteractionTrigger.USE);
-                });
-                break;
+            case LEFT_CLICK_BLOCK, LEFT_CLICK_AIR -> this.playerList.forPlayer(player, gamePlayer -> {
+                InteractionManager interactionManager = gamePlayer.getInteractionManager();
+                interactionManager.dispatch(InteractionTrigger.ATTACK);
+            });
+            case RIGHT_CLICK_BLOCK, RIGHT_CLICK_AIR -> this.playerList.forPlayer(player, gamePlayer -> {
+                InteractionManager interactionManager = gamePlayer.getInteractionManager();
+                interactionManager.dispatch(InteractionTrigger.USE);
+            });
         }
     }
 
@@ -137,9 +131,9 @@ public class PlayerInteractionListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    private void onPlayerJump(GamePlayerJumpEvent event) {
-        GamePlayer gamePlayer = event.getGamePlayer();
-        InteractionManager interactionManager = gamePlayer.getInteractionManager();
+    private void onPlayerJump(PlayerJumpAnnoyingEvent event) {
+        AnnoyingPlayer annoyingPlayer = event.getAnnoyingPlayer();
+        InteractionManager interactionManager = annoyingPlayer.getInteractionManager();
         interactionManager.dispatch(InteractionTrigger.JUMP);
     }
 

@@ -1,12 +1,11 @@
 package dev.fabien2s.annoyingapi.gui;
 
 import dev.fabien2s.annoyingapi.AnnoyingPlugin;
-import dev.fabien2s.annoyingapi.event.player.inventory.GamePlayerRenameItemEvent;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
+import dev.fabien2s.annoyingapi.player.PlayerList;
 import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
-import dev.fabien2s.annoyingapi.player.PlayerList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bukkit.Server;
@@ -74,25 +73,23 @@ public class GuiManager implements Listener {
 
     public GuiInput createInput(@Nullable GuiWindow parent, BaseComponent title) {
         Server server = plugin.getServer();
-        return new GuiInput(
-                title,
-                parent
-        );
+        Inventory inventory = server.createInventory(null, InventoryType.ANVIL, title.toLegacyText());
+        return new GuiInput(title, parent, inventory);
     }
 
-    public void open(GuiWindow window, GamePlayer gamePlayer) {
-        InventoryView inventoryView = window.open(gamePlayer);
+    public void open(GuiWindow window, AnnoyingPlayer annoyingPlayer) {
+        InventoryView inventoryView = window.open(annoyingPlayer);
         if (inventoryView == null)
             throw new IllegalStateException("Unable to open the inventory");
 
         GuiView view = new GuiView(window, inventoryView);
-        Player spigotPlayer = gamePlayer.getSpigotPlayer();
+        Player spigotPlayer = annoyingPlayer.getSpigotPlayer();
         this.windowMap.put(spigotPlayer, view);
-        LOGGER.info("{} opened inventory {}", gamePlayer, view);
+        LOGGER.info("{} opened inventory {}", annoyingPlayer, view);
     }
 
-    public void close(GamePlayer gamePlayer, boolean closeAll) {
-        Player spigotPlayer = gamePlayer.getSpigotPlayer();
+    public void close(AnnoyingPlayer annoyingPlayer, boolean closeAll) {
+        Player spigotPlayer = annoyingPlayer.getSpigotPlayer();
         GuiView view = windowMap.remove(spigotPlayer);
         if (view == null)
             return;
@@ -100,12 +97,12 @@ public class GuiManager implements Listener {
         GuiWindow window = view.getWindow();
         GuiWindow parent = window.getParent();
         if (closeAll || parent == null) {
-            LOGGER.info("{} closed inventory {}", gamePlayer, view);
-            window.close(gamePlayer);
+            LOGGER.info("{} closed inventory {}", annoyingPlayer, view);
+            window.close(annoyingPlayer);
             return;
         }
 
-        this.open(parent, gamePlayer);
+        this.open(parent, annoyingPlayer);
     }
 
     @EventHandler
@@ -147,18 +144,6 @@ public class GuiManager implements Listener {
                     event.setResult(Event.Result.DENY);
             }
         });
-    }
-
-    @EventHandler
-    private void onItemRename(GamePlayerRenameItemEvent event) {
-        GamePlayer gamePlayer = event.getGamePlayer();
-        Player spigotPlayer = gamePlayer.getSpigotPlayer();
-        GuiView view = windowMap.get(spigotPlayer);
-        if(view == null)
-            return;
-
-        String input = event.getInput();
-        view.setInput(input);
     }
 
 }

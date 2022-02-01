@@ -1,7 +1,7 @@
 package dev.fabien2s.annoyingapi.interaction;
 
 import dev.fabien2s.annoyingapi.interaction.renderer.InteractionRenderer;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import dev.fabien2s.annoyingapi.util.ITickable;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +18,7 @@ public class InteractionManager implements ITickable {
     private static final Logger LOGGER = LogManager.getLogger(InteractionManager.class);
     private static final InteractionTrigger[] TRIGGERS = InteractionTrigger.values();
 
-    @Getter private final GamePlayer gamePlayer;
+    @Getter private final AnnoyingPlayer annoyingPlayer;
 
     private final EnumMap<InteractionTrigger, InteractionRegistry> registryMap = new EnumMap<>(InteractionTrigger.class);
     private final EnumMap<InteractionTrigger, Interaction> interactionMap = new EnumMap<>(InteractionTrigger.class);
@@ -29,8 +29,8 @@ public class InteractionManager implements ITickable {
 
     private int lastRenderMask = Integer.MAX_VALUE;
 
-    public InteractionManager(GamePlayer gamePlayer) {
-        this.gamePlayer = gamePlayer;
+    public InteractionManager(AnnoyingPlayer annoyingPlayer) {
+        this.annoyingPlayer = annoyingPlayer;
     }
 
     @Override
@@ -92,17 +92,17 @@ public class InteractionManager implements ITickable {
     public void register(InteractionTrigger trigger, Interaction interaction) {
         InteractionRegistry registry = getRegister(trigger);
         if (registry.register(interaction))
-            LOGGER.info("{}: Interaction {} (trigger: {}) registered", gamePlayer, interaction, trigger);
+            LOGGER.info("{}: Interaction {} (trigger: {}) registered", annoyingPlayer, interaction, trigger);
         else
-            LOGGER.warn("{}: Unable to register the interaction {} (trigger {})", gamePlayer, interaction, trigger);
+            LOGGER.warn("{}: Unable to register the interaction {} (trigger {})", annoyingPlayer, interaction, trigger);
     }
 
     public void unregister(InteractionTrigger trigger, Interaction interaction) {
         InteractionRegistry registry = getRegister(trigger);
         if (registry.unregister(interaction))
-            LOGGER.info("{}: Interaction {} (trigger: {}) unregistered", gamePlayer, interaction, trigger);
+            LOGGER.info("{}: Interaction {} (trigger: {}) unregistered", annoyingPlayer, interaction, trigger);
         else
-            LOGGER.warn("{}: Unable to unregister the interaction {} (trigger {})", gamePlayer, interaction, trigger);
+            LOGGER.warn("{}: Unable to unregister the interaction {} (trigger {})", annoyingPlayer, interaction, trigger);
     }
 
     public boolean hasDispatched(InteractionTrigger trigger) {
@@ -113,7 +113,7 @@ public class InteractionManager implements ITickable {
         if (shouldCancelDispatch(triggeredActions, trigger) || !triggeredActions.add(trigger))
             return;
 
-        LOGGER.info("{}: {} dispatched", gamePlayer, trigger);
+        LOGGER.info("{}: {} dispatched", annoyingPlayer, trigger);
 
         InteractionRegistry registry = registryMap.get(trigger);
         if (registry == null)
@@ -128,14 +128,14 @@ public class InteractionManager implements ITickable {
 
     public boolean interact(Interaction interaction, InteractionTrigger trigger) {
         if (interaction.isLocked() || !interaction.canInteract(this)) {
-            LOGGER.warn("{}: Unable to interact with {}", gamePlayer, interaction);
+            LOGGER.warn("{}: Unable to interact with {}", annoyingPlayer, interaction);
             return false;
         }
 
         if (currentInteraction != null)
             this.stopInteract(InteractionInterruptCause.CANCELLED_BY_INTERACTION);
 
-        LOGGER.info("{}: Interaction {} started", gamePlayer, interaction);
+        LOGGER.info("{}: Interaction {} started", annoyingPlayer, interaction);
         this.currentInteraction = interaction;
         this.currentInteraction.handleEnter(this, trigger);
         return true;
@@ -145,7 +145,7 @@ public class InteractionManager implements ITickable {
         if (currentInteraction == null)
             return;
 
-        LOGGER.info("{}: Interaction {} ended (cause: {})", gamePlayer, currentInteraction, interruptCause);
+        LOGGER.info("{}: Interaction {} ended (cause: {})", annoyingPlayer, currentInteraction, interruptCause);
 
         // handle cases where Interaction#onInteractionExit call InteractionManager#interact
         Interaction tmp = this.currentInteraction;

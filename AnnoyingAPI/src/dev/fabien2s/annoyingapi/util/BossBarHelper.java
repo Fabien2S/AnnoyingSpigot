@@ -1,7 +1,7 @@
 package dev.fabien2s.annoyingapi.util;
 
 import dev.fabien2s.annoyingapi.magical.IValueSupplier;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
@@ -31,11 +31,11 @@ public final class BossBarHelper {
             bar.setColor(color);
     }
 
-    public static KeyedBossBar create(NamespacedKey key, GamePlayer gamePlayer) {
+    public static KeyedBossBar create(NamespacedKey key, AnnoyingPlayer annoyingPlayer) {
         Server server = Bukkit.getServer();
         KeyedBossBar keyedBossBar = server.createBossBar(key, key.toString(), BarColor.WHITE, BarStyle.SOLID);
 
-        Player spigotPlayer = gamePlayer.getSpigotPlayer();
+        Player spigotPlayer = annoyingPlayer.getSpigotPlayer();
         keyedBossBar.addPlayer(spigotPlayer);
 
         return keyedBossBar;

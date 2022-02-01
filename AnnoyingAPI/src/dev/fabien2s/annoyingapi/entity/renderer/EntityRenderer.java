@@ -1,13 +1,13 @@
 package dev.fabien2s.annoyingapi.entity.renderer;
 
+import dev.fabien2s.annoyingapi.adapter.entity.EntityController;
+import dev.fabien2s.annoyingapi.adapter.player.PlayerController;
 import dev.fabien2s.annoyingapi.entity.EntityAnimation;
 import dev.fabien2s.annoyingapi.entity.EntityFlag;
 import dev.fabien2s.annoyingapi.entity.EntityPose;
 import dev.fabien2s.annoyingapi.util.ITickable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import dev.fabien2s.annoyingapi.adapter.player.IPlayerController;
-import dev.fabien2s.annoyingapi.entity.controller.IEntityController;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.scoreboard.Team;
@@ -24,7 +24,7 @@ public abstract class EntityRenderer<T extends Entity, U extends EntityRenderer<
 
     @Getter
     @Nonnull
-    protected final IEntityController controller;
+    protected final EntityController controller;
 
     @Nullable private ChatColor color;
     @Nullable private Team.OptionStatus nameTagVisibility;
@@ -49,7 +49,7 @@ public abstract class EntityRenderer<T extends Entity, U extends EntityRenderer<
         }
     }
 
-    public void forceUpdate(IPlayerController playerController) {
+    public void forceUpdate(PlayerController playerController) {
         this.controller.forceUpdate(playerController);
     }
 

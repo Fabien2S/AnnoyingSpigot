@@ -127,7 +127,7 @@ public class Interaction {
     }
 
     public boolean isDown() {
-        return trigger == null || trigger.test(interactionManager.getGamePlayer());
+        return trigger == null || trigger.test(interactionManager.getAnnoyingPlayer());
     }
 
     public boolean isRendered() {

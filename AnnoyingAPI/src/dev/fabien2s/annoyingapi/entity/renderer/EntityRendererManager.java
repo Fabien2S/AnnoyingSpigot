@@ -1,13 +1,11 @@
 package dev.fabien2s.annoyingapi.entity.renderer;
 
-import dev.fabien2s.annoyingapi.adapter.GameAdapters;
-import dev.fabien2s.annoyingapi.adapter.IGameAdapter;
+import dev.fabien2s.annoyingapi.adapter.entity.EntityController;
+import dev.fabien2s.annoyingapi.entity.controller.IEntityController;
 import dev.fabien2s.annoyingapi.entity.tracker.IEntityTracker;
 import dev.fabien2s.annoyingapi.util.ITickable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import dev.fabien2s.annoyingapi.adapter.entity.IEntityAdapter;
-import dev.fabien2s.annoyingapi.entity.controller.IEntityController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bukkit.entity.*;
@@ -23,7 +21,8 @@ public class EntityRendererManager implements ITickable {
 
     private static final Logger LOGGER = LogManager.getLogger(EntityRendererManager.class);
 
-    @Getter private final EntityRendererManager parent;
+    @Getter
+    private final EntityRendererManager parent;
     private final Function<Entity, IEntityTracker> trackerBuilder;
     private final Map<Integer, EntityRenderer<?, ?>> entityRendererMap = new HashMap<>();
 
@@ -43,33 +42,25 @@ public class EntityRendererManager implements ITickable {
         }
     }
 
-    protected EntityRenderer<?, ?> create(Entity entity, EntityRenderer<?, ?> parent, IEntityController controller) {
-        switch (entity.getType()) {
-            case ARMOR_STAND:
-                return new EntityArmorStandRenderer((EntityArmorStandRenderer) parent, (ArmorStand) entity, controller);
-            case COW:
-                return new EntityCowRenderer((EntityCowRenderer) parent, (Cow) entity, controller);
-            case PLAYER:
-                return new EntityPlayerRenderer((EntityPlayerRenderer) parent, (Player) entity, controller);
-            case STRAY:
-                return new EntityStrayRenderer((EntityStrayRenderer) parent, (Stray) entity, controller);
-            case VEX:
-                return new EntityVexRenderer((EntityVexRenderer) parent, (Vex) entity, controller);
-            case MINECART:
-                return new EntityMinecartRenderer((EntityMinecartRenderer) parent, (Minecart) entity, controller);
-            default:
-                return new EntityDefaultRenderer((EntityDefaultRenderer) parent, entity, controller);
-        }
+    @SuppressWarnings("unchecked")
+    protected <T extends Entity, U extends EntityRenderer<T, U>> EntityRenderer<T, U> create(T entity, EntityRenderer<T, U> parent, IEntityController controller) {
+        return (EntityRenderer<T, U>) switch (entity.getType()) {
+            case ARMOR_STAND -> new EntityArmorStandRenderer((EntityArmorStandRenderer) parent, (ArmorStand) entity, controller);
+            case COW -> new EntityCowRenderer((EntityCowRenderer) parent, (Cow) entity, controller);
+            case PLAYER -> new EntityPlayerRenderer((EntityPlayerRenderer) parent, (Player) entity, controller);
+            case STRAY -> new EntityStrayRenderer((EntityStrayRenderer) parent, (Stray) entity, controller);
+            case VEX -> new EntityVexRenderer((EntityVexRenderer) parent, (Vex) entity, controller);
+            case MINECART -> new EntityMinecartRenderer((EntityMinecartRenderer) parent, (Minecart) entity, controller);
+            default -> new EntityDefaultRenderer((EntityDefaultRenderer) parent, entity, controller);
+        };
     }
 
-    protected EntityRenderer<?, ?> register(EntityRenderer<?, ?> parent, Entity entity, IEntityTracker tracker) {
+    protected <T extends Entity, U extends EntityRenderer<T, U>> EntityRenderer<T, U> register(EntityRenderer<T, U> parent, T entity, IEntityTracker tracker) {
         LOGGER.info("Creating entity renderer for entity {}", entity);
 
-        IGameAdapter gameAdapter = GameAdapters.INSTANCE;
-        IEntityAdapter entityAdapter = gameAdapter.getEntityAdapter();
-        IEntityController entityController = entityAdapter.createController(entity, tracker, parent != null ? parent.controller : null);
+        IEntityController entityController = new EntityController(entity, tracker, parent != null ? parent.controller : null);
 
-        EntityRenderer<?, ?> entityRenderer = create(entity, parent, entityController);
+        EntityRenderer<T, U> entityRenderer = create(entity, parent, entityController);
         int entityId = entity.getEntityId();
         this.entityRendererMap.put(entityId, entityRenderer);
         return entityRenderer;
@@ -78,18 +69,20 @@ public class EntityRendererManager implements ITickable {
     protected void reset(EntityRenderer<?, ?> renderer) {
     }
 
-    public EntityRenderer<?, ?> getRenderer(Entity entity) {
+    public <T extends Entity, U extends EntityRenderer<T, U>> EntityRenderer<T, U> getRenderer(T entity) {
         IEntityTracker entityTracker = trackerBuilder.apply(entity);
         return getRenderer(entity, entityTracker);
     }
 
-    public EntityRenderer<?, ?> getRenderer(Entity entity, IEntityTracker tracker) {
+    public <T extends Entity, U extends EntityRenderer<T, U>> EntityRenderer<T, U> getRenderer(T entity, IEntityTracker tracker) {
         int entityId = entity.getEntityId();
-        EntityRenderer<?, ?> entityRenderer = entityRendererMap.get(entityId);
+
+        @SuppressWarnings("unchecked")
+        EntityRenderer<T, U> entityRenderer = (EntityRenderer<T, U>) entityRendererMap.get(entityId);
         if (entityRenderer != null)
             return entityRenderer;
 
-        EntityRenderer<?, ?> parent = this.parent != null ? this.parent.getRenderer(entity, tracker) : null;
+        EntityRenderer<T, U> parent = this.parent != null ? this.parent.getRenderer(entity, tracker) : null;
         return register(parent, entity, tracker);
     }
 

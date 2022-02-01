@@ -11,14 +11,10 @@ public class EntityHelper {
 
     public static HandType getHand(HumanEntity human, MainHand handSide) {
         MainHand mainHand = human.getMainHand();
-        switch (handSide) {
-            case LEFT:
-                return mainHand == MainHand.LEFT ? HandType.MAIN_HAND : HandType.OFF_HAND;
-            case RIGHT:
-                return mainHand == MainHand.LEFT ? HandType.OFF_HAND : HandType.MAIN_HAND;
-            default:
-                return HandType.MAIN_HAND;
-        }
+        return switch (handSide) {
+            case LEFT -> mainHand == MainHand.LEFT ? HandType.MAIN_HAND : HandType.OFF_HAND;
+            case RIGHT -> mainHand == MainHand.LEFT ? HandType.OFF_HAND : HandType.MAIN_HAND;
+        };
     }
 
 }

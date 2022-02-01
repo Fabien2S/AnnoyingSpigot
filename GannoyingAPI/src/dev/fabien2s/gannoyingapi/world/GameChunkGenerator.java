@@ -1,8 +1,7 @@
 package dev.fabien2s.gannoyingapi.world;
 
-import lombok.RequiredArgsConstructor;
-import dev.fabien2s.annoyingapi.structure.Structure;
 import dev.fabien2s.annoyingapi.structure.StructureInstance;
+import lombok.RequiredArgsConstructor;
 import dev.fabien2s.annoyingapi.util.Minecraft;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.generator.ChunkGenerator;

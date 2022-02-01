@@ -1,6 +1,6 @@
 package dev.fabien2s.annoyingapi.entity.renderer;
 
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.Entity;
@@ -13,8 +13,8 @@ public final class EntityRendererHelper {
     public static final String TEAM_PREFIX = "scent";
 
     @Nullable
-    public static EntityRenderer<?, ?> getRenderer(GamePlayer gamePlayer, int id) {
-        EntityRendererManager rendererManager = gamePlayer.getEntityRendererManager();
+    public static EntityRenderer<?, ?> getRenderer(AnnoyingPlayer annoyingPlayer, int id) {
+        EntityRendererManager rendererManager = annoyingPlayer.getEntityRendererManager();
         do {
             EntityRenderer<?, ?> entityRenderer = rendererManager.getRenderer(id);
             if (entityRenderer != null) {

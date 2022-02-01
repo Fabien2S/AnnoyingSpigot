@@ -1,7 +1,7 @@
 package dev.fabien2s.annoyingapi.gui;
 
 import lombok.*;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -26,7 +26,7 @@ public class GuiButton {
     }
 
     public interface IClickHandler {
-        void onClick(GamePlayer gamePlayer);
+        void onClick(AnnoyingPlayer annoyingPlayer);
     }
 
 }

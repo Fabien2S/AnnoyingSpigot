@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import dev.fabien2s.annoyingapi.magical.IValueSupplier;
 import dev.fabien2s.annoyingapi.math.VectorHelper;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import dev.fabien2s.annoyingapi.util.ITickable;
 import dev.fabien2s.annoyingapi.util.RayTraceHelper;
 import dev.fabien2s.gannoyingapi.world.GameWorld;
@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
 
-public abstract class Projectile<T extends GamePlayer & IProjectileSource<U>, U extends IProjectileTarget> extends GameObject implements ITickable {
+public abstract class Projectile<T extends AnnoyingPlayer & IProjectileSource<U>, U extends IProjectileTarget> extends GameObject implements ITickable {
 
     private static final Vector GRAVITY = new Vector(0, -10, 0);
 
@@ -138,7 +138,7 @@ public abstract class Projectile<T extends GamePlayer & IProjectileSource<U>, U 
     }
 
     protected boolean canHitEntity(Entity entity) {
-        GamePlayer shooter = getShooter();
+        AnnoyingPlayer shooter = getShooter();
         if (ignoreShooterCollision && shooter != null && entity instanceof Player) {
             Player shooterPlayer = shooter.getSpigotPlayer();
             if (shooterPlayer.equals(entity))
@@ -159,12 +159,12 @@ public abstract class Projectile<T extends GamePlayer & IProjectileSource<U>, U 
         this.targets = shooter.getTargets();
     }
 
-    public void setVelocity(GamePlayer gamePlayer, IValueSupplier speed) {
-        this.setVelocity(gamePlayer, speed.getValue());
+    public void setVelocity(AnnoyingPlayer annoyingPlayer, IValueSupplier speed) {
+        this.setVelocity(annoyingPlayer, speed.getValue());
     }
 
-    public void setVelocity(GamePlayer gamePlayer, double speed) {
-        Location unsafeEyeLocation = gamePlayer.getUnsafeEyeLocation();
+    public void setVelocity(AnnoyingPlayer annoyingPlayer, double speed) {
+        Location unsafeEyeLocation = annoyingPlayer.getUnsafeEyeLocation();
         this.direction = unsafeEyeLocation.getDirection();
         this.velocity = direction.clone().multiply(speed);
         this.speed = speed;

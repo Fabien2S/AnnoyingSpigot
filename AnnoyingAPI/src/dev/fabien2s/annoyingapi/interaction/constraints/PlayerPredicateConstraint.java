@@ -2,7 +2,7 @@ package dev.fabien2s.annoyingapi.interaction.constraints;
 
 import lombok.RequiredArgsConstructor;
 import dev.fabien2s.annoyingapi.interaction.InteractionManager;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 
 import java.util.function.Predicate;
 
@@ -14,8 +14,8 @@ public class PlayerPredicateConstraint<T> implements IInteractionConstraint {
 
     @Override
     public boolean canInteract(InteractionManager interactionManager) {
-        GamePlayer gamePlayer = interactionManager.getGamePlayer();
-        return gamePlayer.test(tClass, predicate);
+        AnnoyingPlayer annoyingPlayer = interactionManager.getAnnoyingPlayer();
+        return annoyingPlayer.test(tClass, predicate);
     }
 
     @Override

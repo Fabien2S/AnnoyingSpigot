@@ -2,8 +2,7 @@ package dev.fabien2s.gannoyingapi.world;
 
 import dev.fabien2s.gannoyingapi.GamePlugin;
 import lombok.RequiredArgsConstructor;
-import dev.fabien2s.annoyingapi.structure.Structure;
-import dev.fabien2s.annoyingapi.structure.StructureManager;
+import dev.fabien2s.annoyingapi.structure.StructureAnchorManager;
 import org.bukkit.NamespacedKey;
 
 import java.io.IOException;
@@ -13,7 +12,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class StructureRegistry {
 
-    private final StructureManager structureManager;
+    private final StructureAnchorManager structureManager;
     private final Map<NamespacedKey, Structure> structureMap = new HashMap<>();
 
     public Structure loadStructure(String name) {

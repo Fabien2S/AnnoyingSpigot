@@ -3,8 +3,6 @@ package dev.fabien2s.annoyingapi.player;
 import dev.fabien2s.annoyingapi.AnnoyingPlugin;
 import dev.fabien2s.annoyingapi.util.ITickable;
 import lombok.RequiredArgsConstructor;
-import dev.fabien2s.annoyingapi.adapter.GameAdapters;
-import dev.fabien2s.annoyingapi.adapter.IGameAdapter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bukkit.entity.Player;
@@ -20,16 +18,16 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 @RequiredArgsConstructor
-public class PlayerList implements ITickable, Listener, Iterable<GamePlayer> {
+public class PlayerList implements ITickable, Listener, Iterable<AnnoyingPlayer> {
 
     private static final Logger LOGGER = LogManager.getLogger(PlayerList.class);
 
     private final AnnoyingPlugin plugin;
-    private final Map<Player, GamePlayer> players = new HashMap<>();
+    private final Map<Player, AnnoyingPlayer> players = new HashMap<>();
 
     @Override
     public void tick(double deltaTime) {
-        for (GamePlayer player : players.values())
+        for (AnnoyingPlayer player : players.values())
             player.tick(deltaTime);
     }
 
@@ -42,31 +40,30 @@ public class PlayerList implements ITickable, Listener, Iterable<GamePlayer> {
     @EventHandler
     private void onPlayerMove(PlayerMoveEvent e) {
         Player player = e.getPlayer();
-        forPlayer(player, gamePlayer -> gamePlayer.setIdleTime(0));
+        forPlayer(player, p -> p.setIdleTime(0));
     }
 
-    public GamePlayer setPlayer(Player player, IGamePlayerProvider<AnnoyingPlugin> playerProvider) {
-        IGameAdapter gameAdapter = GameAdapters.INSTANCE;
-        GamePlayer gamePlayer = playerProvider.provide(plugin, player, gameAdapter::createController);
-        this.setPlayer(player, gamePlayer);
-        return gamePlayer;
+    public AnnoyingPlayer setPlayer(Player player, IPlayerProvider<AnnoyingPlugin> playerProvider) {
+        AnnoyingPlayer annoyingPlayer = playerProvider.provide(plugin, player);
+        this.setPlayer(player, annoyingPlayer);
+        return annoyingPlayer;
     }
 
-    private void setPlayer(Player player, GamePlayer gamePlayer) {
+    private void setPlayer(Player player, AnnoyingPlayer annoyingPlayer) {
         resetPlayer(player);
 
-        LOGGER.info("Game player updated {}", gamePlayer);
-        this.players.put(player, gamePlayer);
-        gamePlayer.init();
+        LOGGER.info("Game player updated {}", annoyingPlayer);
+        this.players.put(player, annoyingPlayer);
+        annoyingPlayer.init();
     }
 
     public void resetPlayer(Player player) {
-        GamePlayer gamePlayer = players.remove(player);
-        if (gamePlayer == null)
+        AnnoyingPlayer annoyingPlayer = players.remove(player);
+        if (annoyingPlayer == null)
             return;
 
-        LOGGER.info("Resetting player {}", gamePlayer);
-        gamePlayer.reset();
+        LOGGER.info("Resetting player {}", annoyingPlayer);
+        annoyingPlayer.reset();
     }
 
     public void resetAll() {
@@ -76,79 +73,83 @@ public class PlayerList implements ITickable, Listener, Iterable<GamePlayer> {
         this.players.clear();
     }
 
+    public int count() {
+        return players.size();
+    }
+
     public int count(Class<?> clazz) {
         int count = 0;
-        Collection<GamePlayer> gamePlayers = players.values();
-        for (GamePlayer gamePlayer : gamePlayers) {
-            if (clazz.isInstance(gamePlayer))
+        Collection<AnnoyingPlayer> annoyingPlayers = players.values();
+        for (AnnoyingPlayer annoyingPlayer : annoyingPlayers) {
+            if (clazz.isInstance(annoyingPlayer))
                 count++;
         }
         return count;
     }
 
     public <T> void forPlayers(Class<T> clazz, Consumer<T> action) {
-        Collection<GamePlayer> gamePlayers = players.values();
-        for (GamePlayer gamePlayer : gamePlayers) {
-            if (!clazz.isInstance(gamePlayer))
+        Collection<AnnoyingPlayer> annoyingPlayers = players.values();
+        for (AnnoyingPlayer annoyingPlayer : annoyingPlayers) {
+            if (!clazz.isInstance(annoyingPlayer))
                 continue;
 
-            T tPlayer = clazz.cast(gamePlayer);
+            T tPlayer = clazz.cast(annoyingPlayer);
             action.accept(tPlayer);
         }
     }
 
-    public void forPlayer(Player player, Consumer<GamePlayer> action) {
-        GamePlayer gamePlayer = players.get(player);
-        if (gamePlayer == null) {
+    public void forPlayer(Player player, Consumer<AnnoyingPlayer> action) {
+        AnnoyingPlayer annoyingPlayer = players.get(player);
+        if (annoyingPlayer == null) {
             LOGGER.debug("Skipping action for {} (No game player found)", player);
             return;
         }
 
-        action.accept(gamePlayer);
+        action.accept(annoyingPlayer);
     }
 
     public <T> void forPlayer(Player player, Class<T> clazz, Consumer<T> action) {
-        GamePlayer gamePlayer = players.get(player);
-        if (gamePlayer == null) {
+        AnnoyingPlayer annoyingPlayer = players.get(player);
+        if (annoyingPlayer == null) {
             LOGGER.debug("Skipping action for {} (No game player found)", player);
             return;
         }
 
-        if (!clazz.isInstance(gamePlayer)) {
+        if (!clazz.isInstance(annoyingPlayer)) {
             LOGGER.debug("Skipping action for {} (No game player of type {} found)", player, clazz);
             return;
         }
 
-        T tPlayer = clazz.cast(gamePlayer);
+        T tPlayer = clazz.cast(annoyingPlayer);
         action.accept(tPlayer);
     }
 
     @Nullable
-    public GamePlayer getPlayer(Player player) {
+    public AnnoyingPlayer getPlayer(Player player) {
         return players.get(player);
     }
 
-    public GamePlayer requirePlayer(Player player) {
-        GamePlayer gamePlayer = players.get(player);
-        if (gamePlayer == null)
+    public AnnoyingPlayer requirePlayer(Player player) {
+        AnnoyingPlayer annoyingPlayer = players.get(player);
+        if (annoyingPlayer == null)
             throw new IllegalStateException("No GamePlayer are associated with " + player);
-        return gamePlayer;
+        return annoyingPlayer;
     }
 
     @Nullable
     public <T> T getPlayer(Player player, Class<T> clazz) {
-        GamePlayer gamePlayer = players.get(player);
-        if (gamePlayer == null) {
+        AnnoyingPlayer annoyingPlayer = players.get(player);
+        if (annoyingPlayer == null) {
             LOGGER.debug("Skipping action for {} (No game player found)", player);
             return null;
         }
 
-        if (!clazz.isInstance(gamePlayer)) {
+        if (!clazz.isInstance(annoyingPlayer)) {
             LOGGER.debug("Skipping action for {} (No game player of type {} found)", player, clazz);
             return null;
         }
 
-        return clazz.cast(gamePlayer);
+        return clazz.cast(annoyingPlayer);
     }
 
     public <T> T requirePlayer(Player player, Class<T> clazz) {
@@ -160,9 +161,9 @@ public class PlayerList implements ITickable, Listener, Iterable<GamePlayer> {
 
     public <T> T sortPlayer(Class<T> clazz, Comparator<T> comparator) {
         T current = null;
-        for (GamePlayer gamePlayer : players.values()) {
-            if (clazz.isInstance(gamePlayer)) {
-                T player = clazz.cast(gamePlayer);
+        for (AnnoyingPlayer annoyingPlayer : players.values()) {
+            if (clazz.isInstance(annoyingPlayer)) {
+                T player = clazz.cast(annoyingPlayer);
                 if (current == null || comparator.compare(player, current) > 0)
                     current = player;
             }
@@ -172,21 +173,21 @@ public class PlayerList implements ITickable, Listener, Iterable<GamePlayer> {
 
     public <T> Collection<T> getPlayers(Class<T> clazz) {
         List<T> list = new ArrayList<>();
-        for (GamePlayer gamePlayer : players.values()) {
-            if (clazz.isInstance(gamePlayer))
-                list.add(clazz.cast(gamePlayer));
+        for (AnnoyingPlayer annoyingPlayer : players.values()) {
+            if (clazz.isInstance(annoyingPlayer))
+                list.add(clazz.cast(annoyingPlayer));
         }
         return list;
     }
 
     public <T> Collection<T> getPlayers(Class<T> clazz, Predicate<T> playerPredicate) {
         List<T> list = new ArrayList<>();
-        for (GamePlayer gamePlayer : players.values()) {
+        for (AnnoyingPlayer annoyingPlayer : players.values()) {
 
-            if (!clazz.isInstance(gamePlayer))
+            if (!clazz.isInstance(annoyingPlayer))
                 continue;
 
-            T t = clazz.cast(gamePlayer);
+            T t = clazz.cast(annoyingPlayer);
             if (!playerPredicate.test(t))
                 continue;
 
@@ -197,9 +198,9 @@ public class PlayerList implements ITickable, Listener, Iterable<GamePlayer> {
 
     @Nonnull
     @Override
-    public Iterator<GamePlayer> iterator() {
-        Collection<GamePlayer> gamePlayers = players.values();
-        return gamePlayers.iterator();
+    public Iterator<AnnoyingPlayer> iterator() {
+        Collection<AnnoyingPlayer> annoyingPlayers = players.values();
+        return annoyingPlayers.iterator();
     }
 
 }

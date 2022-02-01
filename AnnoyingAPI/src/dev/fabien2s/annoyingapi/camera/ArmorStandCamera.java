@@ -1,6 +1,7 @@
 package dev.fabien2s.annoyingapi.camera;
 
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
+import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -13,7 +14,7 @@ public class ArmorStandCamera extends PlayerCamera {
 
     private ArmorStand camera;
 
-    public ArmorStandCamera(GamePlayer player) {
+    public ArmorStandCamera(AnnoyingPlayer player) {
         super(player);
     }
 

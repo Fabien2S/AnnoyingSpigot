@@ -21,8 +21,6 @@ import java.util.function.Consumer;
 
 public class ItemBuilder {
 
-    public static final ItemStack AIR = new ItemStack(Material.AIR);
-
     private final ItemStack itemStack;
 
     public ItemBuilder() {

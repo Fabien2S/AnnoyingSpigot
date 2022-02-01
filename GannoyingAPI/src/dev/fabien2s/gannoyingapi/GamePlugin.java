@@ -1,7 +1,7 @@
 package dev.fabien2s.gannoyingapi;
 
 import dev.fabien2s.annoyingapi.AnnoyingPlugin;
-import dev.fabien2s.annoyingapi.player.IGamePlayerProvider;
+import dev.fabien2s.annoyingapi.player.IPlayerProvider;
 import dev.fabien2s.annoyingapi.statemachine.IState;
 import dev.fabien2s.annoyingapi.statemachine.IStateMachine;
 import dev.fabien2s.gannoyingapi.command.CommandGame;
@@ -33,7 +33,7 @@ public abstract class GamePlugin extends AnnoyingPlugin implements IStateMachine
     private static final Logger LOGGER = LogManager.getLogger(GamePlugin.class);
 
     private final GameSettings settings = new GameSettings();
-    private final Map<NamespacedKey, IGamePlayerProvider<?>> playerProviderMap = new HashMap<>();
+    private final Map<NamespacedKey, IPlayerProvider<?>> playerProviderMap = new HashMap<>();
 
     private State state;
     private IState<GamePlugin> gameState;
@@ -135,15 +135,15 @@ public abstract class GamePlugin extends AnnoyingPlugin implements IStateMachine
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends AnnoyingPlugin> IGamePlayerProvider<T> getPlayerProvider(NamespacedKey role) {
-        return (IGamePlayerProvider<T>) playerProviderMap.get(role);
+    public <T extends AnnoyingPlugin> IPlayerProvider<T> getPlayerProvider(NamespacedKey role) {
+        return (IPlayerProvider<T>) playerProviderMap.get(role);
     }
 
     public Set<NamespacedKey> getPlayerRoles() {
         return playerProviderMap.keySet();
     }
 
-    public void addPlayerProvider(NamespacedKey key, IGamePlayerProvider<?> playerProvider) {
+    public void addPlayerProvider(NamespacedKey key, IPlayerProvider<?> playerProvider) {
         this.playerProviderMap.put(key, playerProvider);
     }
 

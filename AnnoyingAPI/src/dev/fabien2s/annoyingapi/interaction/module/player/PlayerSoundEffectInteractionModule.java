@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import dev.fabien2s.annoyingapi.interaction.Interaction;
 import dev.fabien2s.annoyingapi.interaction.InteractionInterruptCause;
 import dev.fabien2s.annoyingapi.interaction.InteractionManager;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
 
@@ -18,8 +18,8 @@ public class PlayerSoundEffectInteractionModule implements IInteractionModule {
 
     @Override
     public void onInteractionEnter(Interaction interaction, InteractionManager interactionManager) {
-        GamePlayer gamePlayer = interactionManager.getGamePlayer();
-        gamePlayer.emitSound(sound, category);
+        AnnoyingPlayer annoyingPlayer = interactionManager.getAnnoyingPlayer();
+        annoyingPlayer.emitSound(sound, category);
     }
 
     @Override
@@ -30,8 +30,8 @@ public class PlayerSoundEffectInteractionModule implements IInteractionModule {
     @Override
     public void onInteractionExit(Interaction interaction, InteractionManager interactionManager, InteractionInterruptCause cause) {
         if (stopOnExit) {
-            GamePlayer gamePlayer = interactionManager.getGamePlayer();
-            gamePlayer.stopEmittingSound(sound, category);
+            AnnoyingPlayer annoyingPlayer = interactionManager.getAnnoyingPlayer();
+            annoyingPlayer.stopEmittingSound(sound, category);
         }
     }
 

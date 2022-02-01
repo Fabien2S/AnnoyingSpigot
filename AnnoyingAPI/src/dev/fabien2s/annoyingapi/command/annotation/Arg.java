@@ -13,7 +13,7 @@ public @interface Arg {
 
     String name();
 
-    StringArgumentType.StringType type() default StringArgumentType.StringType.SINGLE_WORD;
+    StringArgumentType.StringType string() default StringArgumentType.StringType.SINGLE_WORD;
 
     Class<?> suggestionProvider() default Object.class;
 

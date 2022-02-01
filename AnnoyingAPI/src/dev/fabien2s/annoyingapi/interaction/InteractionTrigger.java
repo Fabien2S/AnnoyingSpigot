@@ -1,6 +1,6 @@
 package dev.fabien2s.annoyingapi.interaction;
 
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.function.Predicate;
 
-public enum InteractionTrigger implements Predicate<GamePlayer> {
+public enum InteractionTrigger implements Predicate<AnnoyingPlayer> {
 
     ATTACK(Keybinds.ATTACK),
     USE(Keybinds.USE, HumanEntity::isHandRaised),
@@ -24,7 +24,7 @@ public enum InteractionTrigger implements Predicate<GamePlayer> {
     @Getter private final String key;
     @Getter private final BaseComponent component;
 
-    private final Predicate<GamePlayer> interactionPredicate;
+    private final Predicate<AnnoyingPlayer> interactionPredicate;
 
     InteractionTrigger(String key) {
         this(key, null);
@@ -42,20 +42,20 @@ public enum InteractionTrigger implements Predicate<GamePlayer> {
         this.component.setColor(ChatColor.GRAY);
     }
 
-    private Predicate<GamePlayer> convert(Predicate<Player> playerPredicate) {
+    private Predicate<AnnoyingPlayer> convert(Predicate<Player> playerPredicate) {
         return gamePlayer -> {
             Player spigotPlayer = gamePlayer.getSpigotPlayer();
             return playerPredicate.test(spigotPlayer);
         };
     }
 
-    private boolean hasFire(GamePlayer player) {
+    private boolean hasFire(AnnoyingPlayer player) {
         InteractionManager interactionManager = player.getInteractionManager();
         return interactionManager.hasDispatched(this);
     }
 
-    public boolean test(GamePlayer gamePlayer) {
-        return interactionPredicate.test(gamePlayer);
+    public boolean test(AnnoyingPlayer annoyingPlayer) {
+        return interactionPredicate.test(annoyingPlayer);
     }
 
 }

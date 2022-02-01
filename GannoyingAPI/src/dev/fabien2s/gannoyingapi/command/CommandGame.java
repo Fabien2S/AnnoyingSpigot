@@ -6,7 +6,7 @@ import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import dev.fabien2s.annoyingapi.AnnoyingPlugin;
-import dev.fabien2s.annoyingapi.player.IGamePlayerProvider;
+import dev.fabien2s.annoyingapi.player.IPlayerProvider;
 import dev.fabien2s.gannoyingapi.GamePlugin;
 import dev.fabien2s.annoyingapi.command.CommandNode;
 import dev.fabien2s.annoyingapi.command.ICommandContext;
@@ -52,7 +52,7 @@ public class CommandGame extends CommandNode {
 
         GamePlugin plugin = (GamePlugin) context.getPlugin();
 
-        IGamePlayerProvider<AnnoyingPlugin> playerProvider = plugin.getPlayerProvider(roleKey);
+        IPlayerProvider<AnnoyingPlugin> playerProvider = plugin.getPlayerProvider(roleKey);
         if (playerProvider == null) {
             context.sendError("Unknown role " + roleKey);
             return;

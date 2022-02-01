@@ -5,7 +5,7 @@ import dev.fabien2s.annoyingapi.interaction.Interaction;
 import dev.fabien2s.annoyingapi.interaction.InteractionInterruptCause;
 import dev.fabien2s.annoyingapi.interaction.InteractionManager;
 import dev.fabien2s.annoyingapi.interaction.InteractionTrigger;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 
 public class InputHoldInteractionModule implements IInteractionModule {
 
@@ -19,8 +19,8 @@ public class InputHoldInteractionModule implements IInteractionModule {
         if (trigger == null)
             return;
 
-        GamePlayer gamePlayer = interactionManager.getGamePlayer();
-        if (trigger.test(gamePlayer))
+        AnnoyingPlayer annoyingPlayer = interactionManager.getAnnoyingPlayer();
+        if (trigger.test(annoyingPlayer))
             return;
 
         interactionManager.stopInteract(InteractionInterruptCause.CANCELLED_BY_USER);

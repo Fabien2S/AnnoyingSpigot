@@ -1,18 +1,15 @@
 package dev.fabien2s.annoyingapi;
 
-import lombok.Getter;
-import lombok.Setter;
 import dev.fabien2s.annoyingapi.command.CommandManager;
 import dev.fabien2s.annoyingapi.debug.structure.CommandStructure;
 import dev.fabien2s.annoyingapi.entity.renderer.EntityRendererManager;
 import dev.fabien2s.annoyingapi.entity.renderer.ServerEntityRendererManager;
 import dev.fabien2s.annoyingapi.gui.GuiManager;
 import dev.fabien2s.annoyingapi.listener.PlayerInteractionListener;
-import dev.fabien2s.annoyingapi.listener.PlayerRendererListener;
-import dev.fabien2s.annoyingapi.npc.NpcManager;
 import dev.fabien2s.annoyingapi.player.PlayerList;
-import dev.fabien2s.annoyingapi.structure.StructureManager;
 import dev.fabien2s.annoyingapi.util.ITickable;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang.Validate;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Server;
@@ -28,15 +25,18 @@ import java.io.File;
 
 public abstract class AnnoyingPlugin extends JavaPlugin implements Runnable, ITickable {
 
-    @Getter private static AnnoyingPlugin instance;
+    @Getter
+    private static AnnoyingPlugin instance;
 
-    @Getter protected final PlayerList playerList = new PlayerList(this);
+    @Getter
+    protected final PlayerList playerList = new PlayerList(this);
 
-    @Getter protected EntityRendererManager entityRendererManager;
-    @Getter protected CommandManager commandManager;
-    @Getter protected StructureManager structureManager;
-    @Getter protected GuiManager guiManager;
-    @Getter protected NpcManager npcManager;
+    @Getter
+    protected EntityRendererManager entityRendererManager;
+    @Getter
+    protected CommandManager commandManager;
+    @Getter
+    protected GuiManager guiManager;
 
     @Getter
     @Setter
@@ -68,9 +68,7 @@ public abstract class AnnoyingPlugin extends JavaPlugin implements Runnable, ITi
         this.entityRendererManager = new ServerEntityRendererManager(mainScoreboard);
 
         this.commandManager = new CommandManager(this);
-        this.structureManager = new StructureManager(this);
         this.guiManager = new GuiManager(this);
-        this.npcManager = new NpcManager(this);
 
         this.commandManager.registerCommand(CommandStructure::new);
 
@@ -78,7 +76,6 @@ public abstract class AnnoyingPlugin extends JavaPlugin implements Runnable, ITi
         pluginManager.registerEvents(playerList, this);
         pluginManager.registerEvents(guiManager, this);
         pluginManager.registerEvents(new PlayerInteractionListener(playerList), this);
-        pluginManager.registerEvents(new PlayerRendererListener(), this);
 
         BukkitScheduler scheduler = server.getScheduler();
         this.task = scheduler.runTaskTimer(this, this, 0, 0);
@@ -100,9 +97,7 @@ public abstract class AnnoyingPlugin extends JavaPlugin implements Runnable, ITi
 
         this.entityRendererManager = null;
         this.commandManager = null;
-        this.structureManager = null;
         this.guiManager = null;
-        this.npcManager = null;
     }
 
     @Override
@@ -114,7 +109,6 @@ public abstract class AnnoyingPlugin extends JavaPlugin implements Runnable, ITi
         this.playerList.tick(scaledDeltaTime);
 
         this.entityRendererManager.tick(deltaTime);
-        this.npcManager.tick(deltaTime);
     }
 
     public static NamespacedKey createKey(String key) {

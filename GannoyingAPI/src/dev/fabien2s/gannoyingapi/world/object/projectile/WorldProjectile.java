@@ -4,7 +4,7 @@ import lombok.Getter;
 import dev.fabien2s.annoyingapi.entity.renderer.EntityArmorStandRenderer;
 import dev.fabien2s.annoyingapi.entity.renderer.EntityRendererManager;
 import dev.fabien2s.annoyingapi.math.VectorHelper;
-import dev.fabien2s.annoyingapi.player.GamePlayer;
+import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import dev.fabien2s.gannoyingapi.GamePlugin;
 import dev.fabien2s.gannoyingapi.world.GameWorld;
 import org.bukkit.Location;
@@ -13,7 +13,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.util.Vector;
 
-public abstract class WorldProjectile<T extends GamePlayer & IProjectileSource<U>, U extends IProjectileTarget> extends Projectile<T, U> {
+public abstract class WorldProjectile<T extends AnnoyingPlayer & IProjectileSource<U>, U extends IProjectileTarget> extends Projectile<T, U> {
 
     @Getter protected ArmorStand armorStand;
     @Getter protected EntityArmorStandRenderer renderer;
