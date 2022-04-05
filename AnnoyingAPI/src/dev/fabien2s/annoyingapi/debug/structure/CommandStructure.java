@@ -16,15 +16,18 @@ import dev.fabien2s.annoyingapi.command.annotation.FunctionInfo;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Server;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
+import org.bukkit.structure.Structure;
+import org.bukkit.structure.StructureManager;
 import org.bukkit.util.BlockVector;
 import org.bukkit.util.Vector;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
-import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class CommandStructure extends CommandNode {
@@ -40,7 +43,7 @@ public class CommandStructure extends CommandNode {
         PlayerList playerList = plugin.getPlayerList();
         StructureBuilderPlayer builderPlayer = playerList.getPlayer(player, StructureBuilderPlayer.class);
         if (builderPlayer == null)
-            context.sendError("You are editing no structure");
+            context.sendFailure("You are editing no structure");
         return builderPlayer;
     }
 
@@ -58,7 +61,7 @@ public class CommandStructure extends CommandNode {
         PlayerList playerList = plugin.getPlayerList();
         StructureBuilderPlayer builderPlayer = (StructureBuilderPlayer) playerList.setPlayer(player, StructureBuilderPlayer::new);
         builderPlayer.editStructure(name, blockPosition, size);
-        context.sendMessage("Structure \"" + name + "\" created", true);
+        context.sendSuccess("Structure \"" + name + "\" created", true);
     }
 
     @FunctionInfo
@@ -80,10 +83,10 @@ public class CommandStructure extends CommandNode {
                     position.getBlockZ()
             );
             builderPlayer.editStructure(structure, blockPosition);
-            context.sendMessage("Editing structure \"" + name + "\"", true);
+            context.sendSuccess("Editing structure \"" + name + "\"", true);
 
         } catch (IOException e) {
-            context.sendError("Structure \"" + name + " \" not found");
+            context.sendFailure("Structure \"" + name + " \" not found");
         }
     }
 
@@ -95,9 +98,9 @@ public class CommandStructure extends CommandNode {
 
         Location location = context.getLocation();
         if (builderPlayer.addAnchor(name, tag, location))
-            context.sendMessage("Anchor \"" + name + "\" successfully added");
+            context.sendSuccess("Anchor \"" + name + "\" successfully added");
         else
-            context.sendError("An anchor named \"" + name + "\" already exists");
+            context.sendFailure("An anchor named \"" + name + "\" already exists");
     }
 
     @FunctionInfo
@@ -107,19 +110,20 @@ public class CommandStructure extends CommandNode {
             return;
 
         if (builderPlayer.saveStructure())
-            context.sendMessage("Structure saved");
+            context.sendSuccess("Structure saved");
         else
-            context.sendError("Unable to save the structure");
+            context.sendFailure("Unable to save the structure");
     }
 
     @FunctionInfo
     private void load(ICommandContext context, @Arg(name = "name") NamespacedKey name) {
-        Location location = context.getLocation();
-
         try {
-            AnnoyingPlugin plugin = context.getPlugin();
-            StructureAnchorManager structureManager = plugin.getStructureManager();
-            Structure structure = structureManager.load(name);
+            Server server = context.getServer();
+            StructureManager structureManager = server.getStructureManager();
+            Structure structure = structureManager.loadStructure(name);
+
+            Location location = context.getLocation();
+            structure.place();
 
             Block origin = location.getBlock();
             for (int x = 0; x < structure.getSizeX(); x++) {
@@ -134,10 +138,10 @@ public class CommandStructure extends CommandNode {
                 }
             }
 
-            context.sendMessage("Structure \"" + name + "\" successfully loaded", true);
+            context.sendSuccess("Structure \"" + name + "\" successfully loaded", true);
 
         } catch (IOException e) {
-            context.sendError("Missing structure file");
+            context.sendFailure("Missing structure file");
         }
 
     }
@@ -146,9 +150,10 @@ public class CommandStructure extends CommandNode {
         @Override
         public CompletableFuture<Suggestions> getSuggestions(CommandContext<T> commandContext, SuggestionsBuilder suggestionsBuilder) {
             AnnoyingPlugin plugin = AnnoyingPlugin.getPlugin(AnnoyingPlugin.class);
-            StructureAnchorManager structureManager = plugin.getStructureManager();
-            Collection<NamespacedKey> structures = structureManager.getStructures();
-            return SuggestionHelper.suggestIdentifier(structures, suggestionsBuilder);
+            Server server = plugin.getServer();
+            StructureManager structureManager = server.getStructureManager();
+            Map<NamespacedKey, Structure> structures = structureManager.getStructures();
+            return SuggestionHelper.suggestIdentifier(structures.keySet(), suggestionsBuilder);
         }
     }
 

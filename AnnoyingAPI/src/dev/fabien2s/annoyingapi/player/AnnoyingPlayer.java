@@ -2,11 +2,10 @@ package dev.fabien2s.annoyingapi.player;
 
 import dev.fabien2s.annoyingapi.AnnoyingPlugin;
 import dev.fabien2s.annoyingapi.adapter.player.PlayerController;
-import dev.fabien2s.annoyingapi.entity.renderer.EntityPlayerRenderer;
+import dev.fabien2s.annoyingapi.entity.renderer.living.human.EntityPlayerRenderer;
 import dev.fabien2s.annoyingapi.entity.renderer.EntityRendererManager;
 import dev.fabien2s.annoyingapi.interaction.InteractionInterruptCause;
 import dev.fabien2s.annoyingapi.interaction.InteractionManager;
-import dev.fabien2s.annoyingapi.magical.MagicalCollection;
 import dev.fabien2s.annoyingapi.magical.MagicalDouble;
 import dev.fabien2s.annoyingapi.math.IUnsafeEntityLocation;
 import dev.fabien2s.annoyingapi.sound.ISoundEmitter;
@@ -14,15 +13,15 @@ import dev.fabien2s.annoyingapi.statemachine.IState;
 import dev.fabien2s.annoyingapi.statemachine.IStateMachine;
 import dev.fabien2s.annoyingapi.util.IModifierCollection;
 import dev.fabien2s.annoyingapi.util.ITickable;
-import dev.fabien2s.annoyingapi.util.SkinPart;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
@@ -43,80 +42,48 @@ public abstract class AnnoyingPlayer implements ITickable, IStateMachine<Annoyin
 
     public static final double GRAVITY_ACCELERATION = -0.08;
 
-    @Getter
-    protected final AnnoyingPlugin plugin;
-    @Getter
-    protected final NamespacedKey roleName;
-    @Getter
-    protected final Player spigotPlayer;
-    @Getter
-    protected final PlayerController controller;
+    @Getter protected final AnnoyingPlugin plugin;
+    @Getter protected final NamespacedKey roleName;
+    @Getter protected final Player spigotPlayer;
+    @Getter protected final PlayerController controller;
 
-    @Getter
-    protected final InteractionManager interactionManager;
-    @Getter
-    protected final EntityRendererManager entityRendererManager;
-    @Getter
-    protected final EntityPlayerRenderer playerRenderer;
+    @Getter protected final EntityRendererManager entityRendererManager;
+    @Getter protected final EntityPlayerRenderer playerRenderer;
 
-    @Getter
-    protected final MagicalDouble walkSpeed = new MagicalDouble(DEFAULT_WALK_SPEED);
-    @Getter
-    protected final MagicalCollection<Boolean> invisible = new MagicalCollection<>(false, Boolean::compareTo);
+    @Getter protected final InteractionManager interactionManager;
+
+    @Getter protected final MagicalDouble walkSpeed = new MagicalDouble(DEFAULT_WALK_SPEED);
 
     private final Map<NamespacedKey, MagicalDouble> modifierMap = new HashMap<>();
 
-    private Location playerLocation;
-    private Location headLocation;
-    @Nullable
-    protected IState<AnnoyingPlayer> playerState;
+    @Nonnull private Location playerLocation;
+    @Nonnull private Location headLocation;
+    @Nullable protected IState<AnnoyingPlayer> playerState;
+
+    @Getter private double gravity;
 
     @Getter
     @Setter(AccessLevel.PACKAGE)
     private double idleTime;
 
-    @Getter
-    private double gravity;
-
     protected AnnoyingPlayer(AnnoyingPlugin plugin, NamespacedKey roleName, Player spigotPlayer) {
         this.plugin = plugin;
         this.roleName = roleName;
         this.spigotPlayer = spigotPlayer;
-
-        Server server = plugin.getServer();
-        BukkitScheduler scheduler = server.getScheduler();
-        this.controller = new PlayerController(this, scheduler);
-
-        this.interactionManager = new InteractionManager(this);
+        this.controller = new PlayerController(this);
 
         EntityRendererManager entityRendererManager = plugin.getEntityRendererManager();
         this.entityRendererManager = new EntityRendererManager(entityRendererManager, e -> controller);
         this.playerRenderer = (EntityPlayerRenderer) entityRendererManager.getRenderer(spigotPlayer);
+
+        this.interactionManager = new InteractionManager(this);
+
+        this.playerLocation = spigotPlayer.getLocation();
+        this.headLocation = spigotPlayer.getEyeLocation();
     }
 
     public void init() {
         this.controller.init();
-
-        this.playerLocation = spigotPlayer.getLocation();
-        this.headLocation = spigotPlayer.getEyeLocation();
-
-        this.playerRenderer.setSkinPart(
-                SkinPart.CAPE,
-                SkinPart.JACKET,
-                SkinPart.LEFT_SLEEVE,
-                SkinPart.RIGHT_SLEEVE,
-                SkinPart.LEFT_PANTS_LEG,
-                SkinPart.RIGHT_PANTS_LEG,
-                SkinPart.HAT
-        );
-
-        PlayerList playerList = plugin.getPlayerList();
-        playerList.forEach(other -> {
-            MagicalCollection<Boolean> otherInvisible = other.getInvisible();
-            Boolean otherInvisibleValue = otherInvisible.getValue();
-            if (otherInvisibleValue)
-                this.spigotPlayer.hidePlayer(plugin, other.spigotPlayer);
-        });
     }
 
     public void reset() {
@@ -129,21 +96,12 @@ public abstract class AnnoyingPlayer implements ITickable, IStateMachine<Annoyin
         this.spigotPlayer.setWalkSpeed((float) DEFAULT_WALK_SPEED);
         this.spigotPlayer.setFoodLevel(DEFAULT_FOOD_LEVEL);
 
+        AttributeInstance maxHealthAttribute = spigotPlayer.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+        if (maxHealthAttribute != null) maxHealthAttribute.setBaseValue(DEFAULT_MAX_HEALTH);
+
         this.controller.reset();
         this.playerRenderer.restoreDefault();
         this.entityRendererManager.removeAll();
-
-        PlayerList playerList = plugin.getPlayerList();
-        playerList.forEach(other -> {
-            MagicalCollection<Boolean> otherInvisible = other.getInvisible();
-            boolean otherInvisibleValue = otherInvisible.getValue();
-            if (otherInvisibleValue)
-                this.spigotPlayer.showPlayer(plugin, other.spigotPlayer);
-
-            boolean invisibleValue = invisible.getValue();
-            if (invisibleValue)
-                other.spigotPlayer.showPlayer(plugin, this.spigotPlayer);
-        });
     }
 
     @Override
@@ -158,8 +116,9 @@ public abstract class AnnoyingPlayer implements ITickable, IStateMachine<Annoyin
 
         this.idleTime += deltaTime;
 
+        // fake gravity on server side
         if (spigotPlayer.isOnGround() || spigotPlayer.isFlying())
-            this.gravity = GRAVITY_ACCELERATION * GRAVITY_ACCELERATION;
+            this.gravity = 0;
         else
             this.gravity += GRAVITY_ACCELERATION;
 
@@ -169,18 +128,6 @@ public abstract class AnnoyingPlayer implements ITickable, IStateMachine<Annoyin
         if (walkSpeed.isInvalid()) {
             double walkSpeedValue = walkSpeed.getValue();
             this.spigotPlayer.setWalkSpeed((float) walkSpeedValue);
-        }
-
-        if (invisible.isInvalid()) {
-            boolean invisibleValue = invisible.getValue();
-            PlayerList playerList = plugin.getPlayerList();
-            playerList.forEach(gamePlayer -> {
-                Player spigotPlayer = gamePlayer.getSpigotPlayer();
-                if (invisibleValue)
-                    spigotPlayer.hidePlayer(plugin, this.spigotPlayer);
-                else
-                    spigotPlayer.showPlayer(plugin, this.spigotPlayer);
-            });
         }
     }
 

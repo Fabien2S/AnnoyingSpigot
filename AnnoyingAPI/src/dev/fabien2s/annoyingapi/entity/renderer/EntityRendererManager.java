@@ -2,6 +2,12 @@ package dev.fabien2s.annoyingapi.entity.renderer;
 
 import dev.fabien2s.annoyingapi.adapter.entity.EntityController;
 import dev.fabien2s.annoyingapi.entity.controller.IEntityController;
+import dev.fabien2s.annoyingapi.entity.renderer.living.EntityArmorStandRenderer;
+import dev.fabien2s.annoyingapi.entity.renderer.living.creature.monster.EntityStrayRenderer;
+import dev.fabien2s.annoyingapi.entity.renderer.living.creature.monster.EntityVexRenderer;
+import dev.fabien2s.annoyingapi.entity.renderer.living.human.EntityPlayerRenderer;
+import dev.fabien2s.annoyingapi.entity.renderer.living.creature.animal.EntityCowRenderer;
+import dev.fabien2s.annoyingapi.entity.renderer.vehicle.EntityMinecartRenderer;
 import dev.fabien2s.annoyingapi.entity.tracker.IEntityTracker;
 import dev.fabien2s.annoyingapi.util.ITickable;
 import lombok.Getter;

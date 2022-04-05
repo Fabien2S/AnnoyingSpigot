@@ -1,16 +1,16 @@
-package dev.fabien2s.annoyingapi.entity.renderer;
+package dev.fabien2s.annoyingapi.entity.renderer.living.human;
 
+import dev.fabien2s.annoyingapi.adapter.entity.EntityController;
 import dev.fabien2s.annoyingapi.util.BitSet;
 import dev.fabien2s.annoyingapi.util.SkinPart;
-import dev.fabien2s.annoyingapi.entity.controller.IEntityController;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class EntityPlayerRenderer extends EntityLivingRenderer<Player, EntityPlayerRenderer> {
+public class EntityPlayerRenderer extends EntityHumanRenderer<Player, EntityPlayerRenderer> {
 
-    public EntityPlayerRenderer(EntityPlayerRenderer parent, Player entity, IEntityController controller) {
+    public EntityPlayerRenderer(EntityPlayerRenderer parent, Player entity, EntityController controller) {
         super(parent, entity, controller);
     }
 

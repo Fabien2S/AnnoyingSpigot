@@ -1,7 +1,7 @@
 package dev.fabien2s.gannoyingapi.world.object.projectile;
 
 import lombok.Getter;
-import dev.fabien2s.annoyingapi.entity.renderer.EntityArmorStandRenderer;
+import dev.fabien2s.annoyingapi.entity.renderer.living.EntityArmorStandRenderer;
 import dev.fabien2s.annoyingapi.entity.renderer.EntityRendererManager;
 import dev.fabien2s.annoyingapi.math.VectorHelper;
 import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;

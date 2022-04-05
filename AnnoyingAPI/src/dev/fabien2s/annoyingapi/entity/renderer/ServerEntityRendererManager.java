@@ -1,18 +1,20 @@
 package dev.fabien2s.annoyingapi.entity.renderer;
 
+import dev.fabien2s.annoyingapi.AnnoyingPlugin;
 import dev.fabien2s.annoyingapi.entity.tracker.IEntityTracker;
 import dev.fabien2s.annoyingapi.util.ScoreboardHelper;
 import org.bukkit.entity.Entity;
 import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
 public class ServerEntityRendererManager extends EntityRendererManager {
 
     private final Scoreboard scoreboard;
 
-    public ServerEntityRendererManager(Scoreboard scoreboard) {
+    public ServerEntityRendererManager(ScoreboardManager scoreboardManager) {
         super(null, GameAdapters.INSTANCE.getEntityAdapter()::createTracker);
-        this.scoreboard = scoreboard;
+        this.scoreboard = scoreboardManager.getNewScoreboard();
     }
 
     @Override

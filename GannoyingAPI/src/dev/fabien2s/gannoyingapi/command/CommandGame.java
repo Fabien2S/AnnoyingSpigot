@@ -30,20 +30,20 @@ public class CommandGame extends CommandNode {
     private void start(ICommandContext context) {
         GamePlugin plugin = (GamePlugin) context.getPlugin();
 
-        context.sendMessage("Starting game (it may take a while)", true);
+        context.sendSuccess("Starting game (it may take a while)", true);
         if (plugin.startGame())
-            context.sendMessage("Game successfully started", true);
+            context.sendSuccess("Game successfully started", true);
         else
-            context.sendError("Game is already started");
+            context.sendFailure("Game is already started");
     }
 
     @FunctionInfo(permission = "command.game.stop")
     private void stop(ICommandContext context) {
         GamePlugin plugin = (GamePlugin) context.getPlugin();
         if (plugin.stopGame())
-            context.sendMessage("Game successfully stopped", true);
+            context.sendSuccess("Game successfully stopped", true);
         else
-            context.sendError("Game is not started");
+            context.sendFailure("Game is not started");
     }
 
     @FunctionInfo(permission = "command.game.set_role")
@@ -54,14 +54,14 @@ public class CommandGame extends CommandNode {
 
         IPlayerProvider<AnnoyingPlugin> playerProvider = plugin.getPlayerProvider(roleKey);
         if (playerProvider == null) {
-            context.sendError("Unknown role " + roleKey);
+            context.sendFailure("Unknown role " + roleKey);
             return;
         }
 
         PlayerList playerList = plugin.getPlayerList();
         playerList.setPlayer(player, playerProvider);
 
-        context.sendMessage("Set own role to " + roleKey, true);
+        context.sendSuccess("Set own role to " + roleKey, true);
     }
 
     @FunctionInfo(permission = "command.game.reset_role")
@@ -72,7 +72,7 @@ public class CommandGame extends CommandNode {
         PlayerList playerList = plugin.getPlayerList();
         playerList.resetPlayer(player);
 
-        context.sendMessage("Successfully reset own role", true);
+        context.sendSuccess("Successfully reset own role", true);
     }
 
     public static class RoleSuggestionProvider<T> implements SuggestionProvider<T> {

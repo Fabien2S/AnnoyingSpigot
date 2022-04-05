@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.bukkit.Location;
 import org.bukkit.block.structure.StructureRotation;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class VectorHelper {
@@ -50,6 +51,7 @@ public final class VectorHelper {
         );
     }
 
+    @NotNull
     public static Vector direction(double yaw, double pitch) {
         double yawRad = yaw * MathHelper.DEG_2_RAD;
         double yawPitch = pitch * MathHelper.DEG_2_RAD;

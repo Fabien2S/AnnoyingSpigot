@@ -1,22 +1,24 @@
 package dev.fabien2s.annoyingapi.adapter.player;
 
+import dev.fabien2s.annoyingapi.AnnoyingPlugin;
 import dev.fabien2s.annoyingapi.adapter.packet.IPacketHandler;
 import dev.fabien2s.annoyingapi.adapter.packet.in.PacketPlayerPositionHandler;
 import dev.fabien2s.annoyingapi.adapter.packet.in.PacketTeleportConfirmHandler;
 import dev.fabien2s.annoyingapi.adapter.packet.out.PacketEntityEquipmentHandler;
 import dev.fabien2s.annoyingapi.adapter.packet.out.PacketEntityMetadataHandler;
-import dev.fabien2s.annoyingapi.adapter.packet.out.entity.*;
+import dev.fabien2s.annoyingapi.adapter.packet.out.PacketScoreboardTeamHandler;
 import dev.fabien2s.annoyingapi.entity.EntityReference;
 import dev.fabien2s.annoyingapi.entity.tracker.IEntityTracker;
 import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import io.netty.channel.*;
-import lombok.RequiredArgsConstructor;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.minecraft.commands.arguments.ArgumentAnchor;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.server.level.EntityPlayer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.bukkit.Server;
 import org.bukkit.craftbukkit.v1_18_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
@@ -26,7 +28,6 @@ import org.bukkit.scheduler.BukkitScheduler;
 import java.util.HashMap;
 import java.util.Map;
 
-@RequiredArgsConstructor
 public class PlayerController extends ChannelDuplexHandler implements IEntityTracker {
 
     public static final String NAME = "annoying_packet_interceptor";
@@ -38,6 +39,14 @@ public class PlayerController extends ChannelDuplexHandler implements IEntityTra
 
     private final Map<Class<?>, IPacketHandler<?>> inboundHandlerMap = new HashMap<>();
     private final Map<Class<?>, IPacketHandler<?>> outboundHandlerMap = new HashMap<>();
+
+    public PlayerController(AnnoyingPlayer player) {
+        this.player = player;
+
+        AnnoyingPlugin plugin = player.getPlugin();
+        Server server = plugin.getServer();
+        this.scheduler = server.getScheduler();
+    }
 
     public void init() {
         CraftPlayer craftPlayer = (CraftPlayer) player.getSpigotPlayer();
@@ -130,5 +139,9 @@ public class PlayerController extends ChannelDuplexHandler implements IEntityTra
                 targetReference == EntityReference.EYES ? ArgumentAnchor.Anchor.b : ArgumentAnchor.Anchor.a
         );
         this.sendPacket(packet, true);
+    }
+
+    public void sendActionBar(BaseComponent[] components) {
+        // TODO actionbar
     }
 }

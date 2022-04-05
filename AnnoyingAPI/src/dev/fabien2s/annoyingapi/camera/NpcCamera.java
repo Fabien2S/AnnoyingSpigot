@@ -3,8 +3,7 @@ package dev.fabien2s.annoyingapi.camera;
 import com.mojang.authlib.GameProfile;
 import dev.fabien2s.annoyingapi.AnnoyingPlugin;
 import dev.fabien2s.annoyingapi.adapter.npc.NPCAdapter;
-import dev.fabien2s.annoyingapi.entity.renderer.EntityPlayerRenderer;
-import dev.fabien2s.annoyingapi.entity.renderer.EntityRenderer;
+import dev.fabien2s.annoyingapi.entity.renderer.living.human.EntityPlayerRenderer;
 import dev.fabien2s.annoyingapi.entity.renderer.EntityRendererManager;
 import dev.fabien2s.annoyingapi.math.VectorHelper;
 import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
@@ -16,7 +15,6 @@ import lombok.Setter;
 import org.bukkit.*;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;

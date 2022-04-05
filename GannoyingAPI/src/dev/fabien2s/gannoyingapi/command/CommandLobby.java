@@ -36,9 +36,9 @@ public class CommandLobby extends CommandNode {
         AnnoyingPlayer currentPlayer = playerList.getPlayer(player);
         if (currentPlayer instanceof LobbyPlayer) {
             ((LobbyPlayer) currentPlayer).setSelectedRole(roleKey);
-            context.sendMessage("Set own game role to " + roleKey, true);
+            context.sendSuccess("Set own game role to " + roleKey, true);
         } else
-            context.sendError("Unable to set your game role");
+            context.sendFailure("Unable to set your game role");
     }
 
     public static class RoleSuggestionProvider<T> implements SuggestionProvider<T> {

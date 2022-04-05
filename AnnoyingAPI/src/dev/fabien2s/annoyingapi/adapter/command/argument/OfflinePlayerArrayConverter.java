@@ -9,6 +9,7 @@ import net.minecraft.commands.CommandListenerWrapper;
 import net.minecraft.commands.arguments.ArgumentProfile;
 import net.minecraft.server.MinecraftServer;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.craftbukkit.v1_18_R1.CraftServer;
 
 import java.util.Collection;
 
@@ -19,17 +20,19 @@ public class OfflinePlayerArrayConverter implements ICommandArgumentConverter<Co
     @Override
     public OfflinePlayer[] convert(CommandContext<CommandListenerWrapper> context, Class<OfflinePlayer[]> type, ArgumentProfile.a o) throws CommandSyntaxException {
         CommandListenerWrapper source = context.getSource();
-        MinecraftServer minecraftServer = source.j();
 
         Collection<GameProfile> profiles = o.getNames(source);
         if (profiles.isEmpty())
             return EMPTY;
 
+        MinecraftServer minecraftServer = source.j();
+        CraftServer bukkitServer = minecraftServer.server;
+
         OfflinePlayer[] players = new OfflinePlayer[profiles.size()];
 
         int i = 0;
         for (GameProfile profile : profiles)
-            players[i++] = minecraftServer.server.getOfflinePlayer(profile);
+            players[i++] = bukkitServer.getOfflinePlayer(profile);
 
         return players;
     }

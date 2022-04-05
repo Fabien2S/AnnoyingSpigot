@@ -2,12 +2,8 @@ package dev.fabien2s.annoyingapi.adapter.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import com.mojang.brigadier.tree.RootCommandNode;
 import dev.fabien2s.annoyingapi.adapter.command.argument.*;
-import dev.fabien2s.annoyingapi.adapter.command.argument.entities.EntityArrayConverter;
-import dev.fabien2s.annoyingapi.adapter.command.argument.entities.EntityConverter;
-import dev.fabien2s.annoyingapi.adapter.command.argument.entities.PlayerArrayConverter;
-import dev.fabien2s.annoyingapi.adapter.command.argument.entities.PlayerConverter;
+import dev.fabien2s.annoyingapi.adapter.command.argument.entities.*;
 import dev.fabien2s.annoyingapi.command.CommandNode;
 import dev.fabien2s.annoyingapi.command.ICommandRegistry;
 import dev.fabien2s.annoyingapi.command.argument.ICommandArgumentConverter;
@@ -71,6 +67,7 @@ public class CommandRegistry implements ICommandRegistry<CommandListenerWrapper>
 
     @Override
     public void unregisterCommand(CommandNode command) {
+        // TODO Implement unregister
 //        RootCommandNode<CommandListenerWrapper> rootCommandNode = commandDispatcher.getRoot();
 //        String commandName = command.getName();
 //        rootCommandNode.removeCommand(commandName);

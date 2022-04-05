@@ -10,7 +10,6 @@ import dev.fabien2s.gannoyingapi.world.object.IGameObjectBuilder;
 import dev.fabien2s.gannoyingapi.world.object.impl.SoundEmitterObject;
 import lombok.Getter;
 import dev.fabien2s.annoyingapi.math.RandomHelper;
-import dev.fabien2s.annoyingapi.nbt.tag.NbtCompound;
 import dev.fabien2s.annoyingapi.player.PlayerList;
 import dev.fabien2s.annoyingapi.sound.ISoundListener;
 import dev.fabien2s.annoyingapi.util.ITickable;

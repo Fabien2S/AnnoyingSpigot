@@ -56,7 +56,7 @@ public class EntityController implements IEntityController {
     private final EntityController parent;
 
     private final ScoreboardTeam team;
-    private final DataWatcherWrapper dataWatcher;
+    private final CustomDataWatcher dataWatcher;
 
     private boolean teamUpdated;
 
@@ -68,16 +68,16 @@ public class EntityController implements IEntityController {
         String teamName = EntityRendererHelper.getTeamName(entity);
         this.team = new ScoreboardTeam(SCOREBOARD, teamName);
 
-        this.dataWatcher = new DataWatcherWrapper();
-        this.dataWatcher.set(ENTITY_FLAG_OBJECT, (byte) 0);
-        this.dataWatcher.set(ENTITY_POSE_OBJECT, net.minecraft.world.entity.EntityPose.a);
+        this.dataWatcher = new CustomDataWatcher();
+        this.dataWatcher.a(ENTITY_FLAG_OBJECT, (byte) 0);
+        this.dataWatcher.a(ENTITY_POSE_OBJECT, net.minecraft.world.entity.EntityPose.a);
 
         if (entity instanceof LivingEntity)
-            this.dataWatcher.set(LIVING_HAND_STATE_OBJECT, (byte) 0);
+            this.dataWatcher.a(LIVING_HAND_STATE_OBJECT, (byte) 0);
         if (entity instanceof Player)
-            this.dataWatcher.set(PLAYER_SKIN_OBJECT, (byte) 0);
+            this.dataWatcher.a(PLAYER_SKIN_OBJECT, (byte) 0);
         if (entity instanceof Ageable)
-            this.dataWatcher.set(AGEABLE_BABY_OBJECT, false);
+            this.dataWatcher.a(AGEABLE_BABY_OBJECT, false);
 
         this.updateTeam(null, null, null);
     }

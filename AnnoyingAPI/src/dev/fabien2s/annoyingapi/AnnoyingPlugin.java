@@ -18,14 +18,15 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
+import javax.annotation.Nullable;
 import java.io.File;
 
 public abstract class AnnoyingPlugin extends JavaPlugin implements Runnable, ITickable {
 
     @Getter
+    @Nullable
     private static AnnoyingPlugin instance;
 
     @Getter
@@ -64,8 +65,7 @@ public abstract class AnnoyingPlugin extends JavaPlugin implements Runnable, ITi
         ScoreboardManager scoreboardManager = server.getScoreboardManager();
         if (scoreboardManager == null)
             throw new IllegalStateException("ScoreboardManager is null");
-        Scoreboard mainScoreboard = scoreboardManager.getMainScoreboard();
-        this.entityRendererManager = new ServerEntityRendererManager(mainScoreboard);
+        this.entityRendererManager = new ServerEntityRendererManager(scoreboardManager);
 
         this.commandManager = new CommandManager(this);
         this.guiManager = new GuiManager(this);
@@ -114,20 +114,6 @@ public abstract class AnnoyingPlugin extends JavaPlugin implements Runnable, ITi
     public static NamespacedKey createKey(String key) {
         Validate.notNull(instance, "No game plugin are enabled");
         return new NamespacedKey(instance, key);
-    }
-
-    public static File toFileLocation(NamespacedKey path) {
-        Validate.notNull(instance, "No game plugin are enabled");
-        File dataFolder = instance.getDataFolder();
-        String namespace = path.getNamespace();
-        String key = path.getKey();
-        File file = new File(dataFolder, namespace + '/' + key);
-
-        File parentFile = file.getParentFile();
-        if (!parentFile.exists() && !parentFile.mkdirs())
-            throw new RuntimeException("Unable to create parent directory for " + path);
-
-        return file;
     }
 
 }

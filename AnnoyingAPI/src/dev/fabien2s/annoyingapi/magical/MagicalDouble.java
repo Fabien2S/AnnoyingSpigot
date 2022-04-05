@@ -1,7 +1,6 @@
 package dev.fabien2s.annoyingapi.magical;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.bukkit.NamespacedKey;
 
 import java.util.HashMap;
@@ -22,12 +21,8 @@ public class MagicalDouble implements IValueSupplier {
         this.cachedValue = baseValue;
         for (Modifier modifier : modifiers.values()) {
             switch (modifier.operation) {
-                case ADD:
-                    cachedValue += modifier.value;
-                    break;
-                case ADD_SCALAR:
-                    cachedValue += cachedValue * modifier.value;
-                    break;
+                case ADD -> cachedValue += modifier.value;
+                case ADD_SCALAR -> cachedValue += cachedValue * modifier.value;
             }
         }
         return cachedValue;
@@ -74,10 +69,7 @@ public class MagicalDouble implements IValueSupplier {
         ADD, ADD_SCALAR
     }
 
-    @RequiredArgsConstructor
-    private static class Modifier {
-        @Getter private final Operation operation;
-        @Getter private final double value;
+    private record Modifier(Operation operation, double value) {
     }
 
 }

@@ -210,10 +210,7 @@ public class CommandBaker<T> {
         ICommandContext get(T t);
     }
 
-    @RequiredArgsConstructor
-    private static class BakedParameter {
-        private final Class<?> clazz;
-        private final Arg arg;
+    private record BakedParameter(Class<?> clazz, Arg arg) {
     }
 
 }

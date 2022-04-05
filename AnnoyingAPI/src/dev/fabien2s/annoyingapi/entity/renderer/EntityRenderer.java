@@ -6,8 +6,6 @@ import dev.fabien2s.annoyingapi.entity.EntityAnimation;
 import dev.fabien2s.annoyingapi.entity.EntityFlag;
 import dev.fabien2s.annoyingapi.entity.EntityPose;
 import dev.fabien2s.annoyingapi.util.ITickable;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.scoreboard.Team;
@@ -16,19 +14,25 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-@RequiredArgsConstructor
 public abstract class EntityRenderer<T extends Entity, U extends EntityRenderer<T, U>> implements ITickable {
 
     @Nullable protected final U parent;
     @Nonnull protected final T entity;
-
-    @Getter
-    @Nonnull
-    protected final EntityController controller;
+    @Nonnull protected final EntityController controller;
 
     @Nullable private ChatColor color;
     @Nullable private Team.OptionStatus nameTagVisibility;
     @Nullable private Team.OptionStatus collision;
+
+    public EntityRenderer(@Nullable U parent, @Nonnull T entity, @Nonnull EntityController controller) {
+        this.parent = parent;
+        this.entity = entity;
+        this.controller = controller;
+
+        this.color = null;
+        this.nameTagVisibility = null;
+        this.collision = null;
+    }
 
     @Override
     public void tick(double deltaTime) {
@@ -54,7 +58,7 @@ public abstract class EntityRenderer<T extends Entity, U extends EntityRenderer<
     }
 
     public <TItem> void mergeMetadata(List<TItem> input, List<TItem> output) {
-        if (parent != null)
+        if (this.parent != null)
             this.parent.mergeMetadata(input, output);
         else
             this.controller.applyEntityOverride(input, output);
@@ -90,6 +94,10 @@ public abstract class EntityRenderer<T extends Entity, U extends EntityRenderer<
             this.color = color;
             this.controller.updateTeam(getColor(), getNameVisibility(), getCollision());
         }
+    }
+
+    public void clearColor() {
+        this.setColor(null);
     }
 
     public Team.OptionStatus getNameVisibility() {

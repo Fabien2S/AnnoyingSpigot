@@ -14,7 +14,7 @@ public class GameCommandContext {
         AnnoyingPlugin plugin = context.getPlugin();
         GameWorld gameWorld = ((GamePlugin) plugin).getGameWorld();
         if (gameWorld == null)
-            context.sendError("No game world found");
+            context.sendFailure("No game world found");
         return gameWorld;
     }
 

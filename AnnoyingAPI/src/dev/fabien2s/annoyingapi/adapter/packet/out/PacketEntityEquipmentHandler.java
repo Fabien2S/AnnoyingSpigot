@@ -2,7 +2,7 @@ package dev.fabien2s.annoyingapi.adapter.packet.out;
 
 import com.mojang.datafixers.util.Pair;
 import dev.fabien2s.annoyingapi.adapter.packet.IPacketHandler;
-import dev.fabien2s.annoyingapi.entity.renderer.EntityLivingRenderer;
+import dev.fabien2s.annoyingapi.entity.renderer.living.EntityLivingRenderer;
 import dev.fabien2s.annoyingapi.entity.renderer.EntityRendererHelper;
 import dev.fabien2s.annoyingapi.player.AnnoyingPlayer;
 import dev.fabien2s.annoyingapi.reflection.FastReflection;

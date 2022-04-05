@@ -107,7 +107,6 @@ public class StructureBuilderPlayer extends AnnoyingPlayer {
                         .append(anchorTag);
             }
 
-            this.spigotPlayer.sendTitle();
             this.controller.sendActionBar(builder
                     .create()
             );

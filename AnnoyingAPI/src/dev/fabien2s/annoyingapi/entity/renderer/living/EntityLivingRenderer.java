@@ -1,8 +1,10 @@
-package dev.fabien2s.annoyingapi.entity.renderer;
+package dev.fabien2s.annoyingapi.entity.renderer.living;
 
+import dev.fabien2s.annoyingapi.adapter.entity.EntityController;
+import dev.fabien2s.annoyingapi.adapter.player.PlayerController;
 import dev.fabien2s.annoyingapi.entity.EntityAnimation;
+import dev.fabien2s.annoyingapi.entity.renderer.EntityRenderer;
 import dev.fabien2s.annoyingapi.util.HandType;
-import dev.fabien2s.annoyingapi.entity.controller.IEntityController;
 import org.bukkit.EntityEffect;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.EntityEquipment;
@@ -14,12 +16,12 @@ import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
 
-public class EntityLivingRenderer<T extends LivingEntity, U extends EntityLivingRenderer<T, U>> extends EntityRenderer<T, U> {
+public abstract class EntityLivingRenderer<T extends LivingEntity, U extends EntityLivingRenderer<T, U>> extends EntityRenderer<T, U> {
 
     private final EnumMap<EquipmentSlot, ItemStack> equipmentMap = new EnumMap<>(EquipmentSlot.class);
     private final HashSet<EquipmentSlot> updatedEquipmentSet = new HashSet<>();
 
-    public EntityLivingRenderer(U parent, T entity, IEntityController controller) {
+    public EntityLivingRenderer(U parent, T entity, EntityController controller) {
         super(parent, entity, controller);
     }
 
@@ -51,7 +53,7 @@ public class EntityLivingRenderer<T extends LivingEntity, U extends EntityLiving
     }
 
     @Override
-    public void forceUpdate(IPlayerController playerController) {
+    public void forceUpdate(PlayerController playerController) {
         super.forceUpdate(playerController);
         this.controller.sendEquipment(playerController, equipmentMap);
     }
@@ -59,17 +61,10 @@ public class EntityLivingRenderer<T extends LivingEntity, U extends EntityLiving
     @Override
     public void playAnimation(EntityAnimation animation) {
         switch (animation) {
-            case SWING_MAIN_HAND:
-                this.entity.swingMainHand();
-                break;
-            case SWING_OFF_HAND:
-                this.entity.swingOffHand();
-                break;
-            case HURT:
-                this.entity.playEffect(EntityEffect.HURT);
-                break;
-            default:
-                super.playAnimation(animation);
+            case SWING_MAIN_HAND -> this.entity.swingMainHand();
+            case SWING_OFF_HAND -> this.entity.swingOffHand();
+            case HURT -> this.entity.playEffect(EntityEffect.HURT);
+            default -> super.playAnimation(animation);
         }
     }
 

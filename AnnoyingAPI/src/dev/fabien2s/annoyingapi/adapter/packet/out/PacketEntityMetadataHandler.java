@@ -1,6 +1,5 @@
 package dev.fabien2s.annoyingapi.adapter.packet.out;
 
-import dev.fabien2s.annoyingapi.adapter.entity.DataWatcherWrapper;
 import dev.fabien2s.annoyingapi.adapter.packet.IPacketHandler;
 import dev.fabien2s.annoyingapi.entity.renderer.EntityRenderer;
 import dev.fabien2s.annoyingapi.entity.renderer.EntityRendererHelper;

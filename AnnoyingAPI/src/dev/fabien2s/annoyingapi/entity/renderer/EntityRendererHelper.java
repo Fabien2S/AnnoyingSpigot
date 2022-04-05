@@ -10,13 +10,13 @@ import javax.annotation.Nullable;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class EntityRendererHelper {
 
-    public static final String TEAM_PREFIX = "scent";
+    public static final String TEAM_PREFIX = "$ent";
 
     @Nullable
-    public static EntityRenderer<?, ?> getRenderer(AnnoyingPlayer annoyingPlayer, int id) {
+    public static EntityRenderer<?, ?> getRenderer(AnnoyingPlayer annoyingPlayer, int entityId) {
         EntityRendererManager rendererManager = annoyingPlayer.getEntityRendererManager();
         do {
-            EntityRenderer<?, ?> entityRenderer = rendererManager.getRenderer(id);
+            EntityRenderer<?, ?> entityRenderer = rendererManager.getRenderer(entityId);
             if (entityRenderer != null) {
                 return entityRenderer;
             }

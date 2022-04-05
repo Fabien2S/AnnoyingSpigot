@@ -2,12 +2,9 @@ package dev.fabien2s.annoyingapi.command.reflection;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import dev.fabien2s.annoyingapi.command.CommandNode;
 import dev.fabien2s.annoyingapi.command.ICommandContext;
 import dev.fabien2s.annoyingapi.command.argument.ICommandArgumentConverter;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -87,12 +84,12 @@ public class CommandWrapper<T> implements Command<T> {
         }
     }
 
-    @RequiredArgsConstructor
-    public static class Argument {
-        @Getter private final String name;
-        @Getter private final Class<?> type;
-        @Getter private final Class<?> nmsType;
-        @Getter private final ICommandArgumentConverter<?, ?, ?> converter;
+    public record Argument(
+            String name,
+            Class<?> type,
+            Class<?> nmsType,
+            ICommandArgumentConverter<?, ?, ?> converter
+    ) {
     }
 
 }
